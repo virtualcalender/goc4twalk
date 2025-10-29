@@ -1,34 +1,50 @@
-<div id="lobbyContainer">
-  <div id="mainMenu">
-    <button id="hostGameBtn">Host Game</button>
-    <button id="joinGameBtn">Join Game</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GoCatwalk Lobby</title>
+  <link rel="stylesheet" href="lobby.css">
+</head>
+<body>
+  <div id="lobbyContainer">
+    <!-- Main Menu -->
+    <div id="mainMenu">
+      <button id="hostGameBtn">Host Game</button>
+      <button id="joinGameBtn">Join Game</button>
+    </div>
+
+    <!-- Host Menu -->
+    <div id="hostMenu" class="hidden">
+      <h2>Room Settings</h2>
+      <div id="playerListHost" class="player-list-host"></div>
+
+      <label for="theme">Round Theme:</label>
+      <input type="text" id="theme" placeholder="Enter round theme">
+
+      <label for="backgroundUrl">Optional Background Image URL:</label>
+      <input type="text" id="backgroundUrl" placeholder="Enter image URL">
+
+      <label for="timer">Round Duration (minutes):</label>
+      <input type="number" id="timer" min="5" max="30" value="10">
+
+      <button id="startGameBtn">Start Round</button>
+    </div>
+
+    <!-- Join Menu -->
+    <div id="joinMenu" class="hidden">
+      <h2>Available Rooms</h2>
+      <div id="roomList"></div>
+    </div>
   </div>
 
-  <div id="hostMenu" class="hidden">
-    <h2>Room Settings</h2>
-    <div id="playerListHost" class="player-list-host"></div>
-
-    <label for="theme">Round Theme:</label>
-    <input type="text" id="theme" placeholder="Enter round theme">
-
-    <label for="backgroundUrl">Optional Background Image URL:</label>
-    <input type="text" id="backgroundUrl" placeholder="Enter image URL">
-
-    <label for="timer">Round Duration (minutes):</label>
-    <input type="number" id="timer" min="5" max="30" value="10">
-
-    <button id="startGameBtn">Start Round</button>
+  <!-- Round Screen (hidden until round starts) -->
+  <div id="roundScreen" class="hidden">
+    <div id="roundBackground"></div>
+    <div id="roundTheme"></div>
+    <div id="countdown"></div>
+    <div id="playersDuringRound" class="players-during-round"></div>
   </div>
 
-  <div id="joinMenu" class="hidden">
-    <h2>Available Rooms</h2>
-    <div id="roomList"></div>
-  </div>
-</div>
-
-<!-- Hidden until round starts -->
-<div id="roundScreen" class="hidden">
-  <div id="roundBackground" style="width:100%; height:100%; background-size:cover; background-position:center;"></div>
-  <div id="roundTheme" style="position:absolute; top:10px; left:10px; color:white; font-size:24px;"></div>
-  <div id="countdown" style="position:absolute; top:10px; right:10px; color:white; font-size:24px;"></div>
-</div>
+  <script src="lobby.js"></script>
+</body>
+</html>
