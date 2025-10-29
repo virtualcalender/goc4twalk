@@ -6,13 +6,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="lobby-container">
-    <h1>Lobby</h1>
-    <button id="hostGameBtn">Host Game</button>
-    <button id="joinGameBtn">Join Game</button>
+  <div class="lobby-container fade-in">
+    <h1>GoCatwalk Lobby</h1>
 
+    <div id="mainMenu">
+      <button id="hostGameBtn">Host Game</button>
+      <button id="joinGameBtn">Join Game</button>
+    </div>
+
+    <!-- Host Menu -->
     <div id="hostMenu" class="hidden">
-      <h2>Create Room</h2>
+      <h2>Room Settings</h2>
+
       <div id="playerListHost" class="player-list-host"></div>
 
       <label for="theme">Round Theme:</label>
@@ -27,15 +32,18 @@
       <button id="startGameBtn">Start Round</button>
     </div>
 
+    <!-- Join Menu -->
     <div id="joinMenu" class="hidden">
       <h2>Available Rooms</h2>
-      <div id="availableRooms"></div>
+      <div id="roomList"></div>
     </div>
-  </div>
 
-  <div id="roundScreen">
-    <div class="theme"></div>
-    <div class="timer"></div>
+    <!-- Round screen -->
+    <div id="roundScreen" class="hidden">
+      <h2 id="roundTheme"></h2>
+      <div id="countdown"></div>
+      <div id="roundBackground"></div>
+    </div>
   </div>
 
   <script src="lobby.js"></script>
