@@ -1,0 +1,176 @@
+/* 💖 Soft pink gradient background */
+body {
+  background: linear-gradient(135deg, #ffe6f5, #ffd1e8);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  color: #4a235a;
+  overflow: hidden;
+}
+
+/* ✨ Fade-in animation */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Login card */
+.login-container {
+  background: #fff0f7; 
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 340px;
+  text-align: center;
+  position: relative;
+}
+
+/* Titles */
+h1 {
+  margin-bottom: 0.5rem;
+  color: #ff4fae;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin-bottom: 2rem;
+  color: #6c3483;
+}
+
+/* Form inputs */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input {
+  padding: 10px;
+  border: 2px solid #ffd1e8;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff7ecb;
+  box-shadow: 0 0 5px #ff7ecb;
+}
+
+/* Buttons */
+button {
+  background-color: #ff7ecb;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #ff4fae;
+  transform: scale(1.03);
+}
+
+/* Status message */
+.status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #884ea0;
+}
+
+/* 👗 Preview section */
+.preview {
+  margin-top: 1.5rem;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.preview.hidden {
+  display: none;
+}
+
+#previewImg {
+  width: 150px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ✨ Modal popup */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 230, 245, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: #fff0f7;
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.modal-content img {
+  width: 150px;
+  border-radius: 10px;
+  margin: 10px 0;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.modal-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #ff7ecb;
+  color: white;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.modal-buttons button:hover {
+  background-color: #ff4fae;
+  transform: scale(1.05);
+}
