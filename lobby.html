@@ -6,32 +6,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="lobby-container fade-in">
-    <h1>GoCatwalk Lobby</h1>
+  <div class="lobby-container">
+    <h1>Lobby</h1>
+    <button id="hostGameBtn">Host Game</button>
+    <button id="joinGameBtn">Join Game</button>
 
-    <!-- Player avatar and name -->
-    <div class="player-info">
-      <img id="playerAvatar" class="player-avatar" src="" alt="Your Avatar">
-      <p id="playerName"></p>
-    </div>
-
-    <!-- Main menu -->
-    <div class="lobby-buttons">
-      <button id="hostBtn">Host Game</button>
-      <button id="joinBtn">Join Game</button>
-    </div>
-
-    <!-- Host Room Section -->
-    <div id="hostRoom" class="hidden">
-      <h2>Your Room</h2>
-      <p id="roomNameDisplay"></p>
+    <div id="hostMenu" class="hidden">
+      <h2>Create Room</h2>
       <div id="playerListHost" class="player-list-host"></div>
-      <button id="editRoundBtn">Edit Round Settings</button>
-    </div>
-
-    <!-- Round Settings -->
-    <div id="roundSettings" class="hidden">
-      <h2>Round Settings</h2>
 
       <label for="theme">Round Theme:</label>
       <input type="text" id="theme" placeholder="Enter round theme">
@@ -42,20 +24,18 @@
       <label for="timer">Round Duration (minutes):</label>
       <input type="number" id="timer" min="5" max="30" value="10">
 
-      <button id="startRoundBtn">Start Round</button>
+      <button id="startGameBtn">Start Round</button>
     </div>
 
-    <!-- Join Menu -->
     <div id="joinMenu" class="hidden">
       <h2>Available Rooms</h2>
-      <ul id="availableRooms"></ul>
+      <div id="availableRooms"></div>
     </div>
+  </div>
 
-    <!-- Room View for joined players -->
-    <div id="roomView" class="hidden">
-      <h2 id="joinedRoomName"></h2>
-      <div id="joinedPlayerList" class="player-list"></div>
-    </div>
+  <div id="roundScreen">
+    <div class="theme"></div>
+    <div class="timer"></div>
   </div>
 
   <script src="lobby.js"></script>
