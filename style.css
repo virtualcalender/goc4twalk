@@ -1,25 +1,20 @@
+/* Page layout */
 body {
   background: linear-gradient(135deg, #ffe6f5, #ffd1e8);
   font-family: 'Poppins', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   margin: 0;
   color: #4a235a;
   overflow: hidden;
+
+  /* Center login box, but not everything */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* allows fixed items to sit outside center */
 }
 
-.fade-in {
-  animation: fadeIn 1s ease forwards;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* Login container */
 .login-container {
   background: white;
   padding: 2.5rem;
@@ -27,85 +22,26 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   width: 340px;
   text-align: center;
-  position: relative;
   z-index: 5;
+  position: relative;
 }
 
-h1 {
-  color: #ff4fae;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-}
-
-.subtitle {
-  color: #6c3483;
-  margin-bottom: 1.5rem;
-}
-
-input {
-  padding: 10px;
-  border: 2px solid #ffd1e8;
-  border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 0.8rem;
-}
-
-input:focus {
-  outline: none;
-  border-color: #ff7ecb;
-  box-shadow: 0 0 5px #ff7ecb;
-}
-
-button {
-  background-color: #ff7ecb;
-  border: none;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-
-button:hover {
-  background-color: #ff4fae;
-  transform: scale(1.03);
-}
-
-.preview {
-  margin-top: 1.5rem;
-}
-
-.preview.hidden {
-  display: none;
-}
-
-#previewImg {
-  width: 150px;
-  border-radius: 10px;
-  margin-top: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-#previewImg.hidden {
-  display: none;
-}
-
-/* Floating background picker */
+/* 🌸 Floating panel FIXED to the left */
 #backgroundPicker {
   position: fixed;
   top: 50%;
   left: 40px;
   transform: translateY(-50%);
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   padding: 1rem;
-  width: 240px;
+  width: 250px;
   z-index: 9999;
   cursor: grab;
 }
 
+/* Header for dragging */
 #dragHandle {
   background: #ff7ecb;
   color: white;
@@ -117,6 +53,7 @@ button:hover {
   text-align: center;
 }
 
+/* Thumbnails */
 #backgroundOptions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -136,10 +73,29 @@ button:hover {
   box-shadow: 0 0 10px #ffb6d6;
 }
 
+/* Avatar preview */
+.avatar-container {
+  position: relative;
+  width: 200px;
+  height: 280px;
+  margin: 0 auto;
+}
+
+.bg-layer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.avatar-layer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
 .hidden {
   display: none !important;
 }
-
-
-
-
