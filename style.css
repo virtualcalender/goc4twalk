@@ -175,6 +175,92 @@ button:hover {
   background-color: #ff4fae;
   transform: scale(1.03);
 }
+.lobby-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 400px;
+  text-align: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: top; /* Shows the top of the outfit */
+}
+
+.menu-buttons button {
+  margin: 0 10px;
+  background-color: #ff7ecb;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.menu {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.menu label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #6c3483;
+}
+
+.menu input,
+.menu textarea {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #ffd1e8;
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+.player-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.player-bubble {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ffb6d6;
+}
+
+.player-bubble img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: top;
+}
+
+.hidden {
+  display: none;
+}
+
 
 
 
