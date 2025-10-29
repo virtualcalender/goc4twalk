@@ -10,9 +10,15 @@
     <h1>GoCatwalk</h1>
     <p class="subtitle">Enter your name and GoSuperModel ID</p>
 
-    <input id="username" placeholder="Enter your name" />
-    <input id="modelID" placeholder="Enter your GoSuperModel ID" />
-    <button id="showBtn">Is this you?</button>
+    <form>
+      <label for="username">Name:</label>
+      <input id="username" placeholder="Enter your name" />
+
+      <label for="modelID">GoSupermodel ID:</label>
+      <input id="modelID" placeholder="Enter your GoSuperModel ID" />
+
+      <button type="button" id="showBtn">Is this you?</button>
+    </form>
 
     <div class="preview hidden" id="confirmBox">
       <img id="previewImg" class="hidden" src="" alt="Model Preview">
