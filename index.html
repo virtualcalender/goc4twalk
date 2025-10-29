@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Main login container -->
   <div class="login-container fade-in">
     <h1>GoCatwalk</h1>
     <p class="subtitle">Enter your name and GoSuperModel ID</p>
@@ -28,15 +29,15 @@
     </div>
   </div>
 
-  <!-- 🌸 Floating Background Picker - always visible after confirmation -->
+  <!-- 🌸 Floating Background Picker (outside the centered layout) -->
   <div id="backgroundPicker" class="hidden">
-    <div id="dragHandle">🎨 Choose Your Catwalk Background</div>
+    <div id="dragHandle">🎨 Choose Background</div>
     <div id="backgroundOptions"></div>
 
     <div id="avatarPreview" class="hidden">
       <div class="avatar-container">
-        <img id="bgImage" alt="Background" class="bg-layer">
-        <img id="avatarImg" alt="Your Avatar" class="avatar-layer">
+        <img id="bgImage" class="bg-layer" alt="Background">
+        <img id="avatarImg" class="avatar-layer" alt="Your Avatar">
       </div>
       <button id="continueBtn">Continue to Lobby</button>
     </div>
