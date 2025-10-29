@@ -25,10 +25,11 @@ const backgrounds = [
   "https://gosupermodel.com/files/gochella%20by%20falco%20avatar%20bg"
 ];
 
-// Step 1: Show model preview
+// Step 1: Preview model
 showBtn.addEventListener("click", () => {
   const modelID = modelIDInput.value.trim();
   const username = usernameInput.value.trim();
+
   if (!modelID || !username) {
     alert("Enter both your name and GoSuperModel ID!");
     return;
@@ -45,7 +46,6 @@ yesBtn.addEventListener("click", () => {
   const modelID = modelIDInput.value.trim();
   if (!username || !modelID) return;
 
-  // Save player data
   localStorage.setItem("currentUser", JSON.stringify({ name: username, id: modelID }));
 
   confirmBox.classList.add("hidden");
@@ -54,7 +54,6 @@ yesBtn.addEventListener("click", () => {
 
   avatarImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
 
-  // Populate background options
   backgroundOptions.innerHTML = "";
   backgrounds.forEach(url => {
     const img = document.createElement("img");
@@ -64,14 +63,14 @@ yesBtn.addEventListener("click", () => {
   });
 });
 
-// Step 3: “No” resets
+// Step 3: Reset
 noBtn.addEventListener("click", () => {
   confirmBox.classList.add("hidden");
   previewImg.classList.add("hidden");
   modelIDInput.value = "";
 });
 
-// Step 4: Select background
+// Step 4: Choose background
 function selectBackground(url, imgEl) {
   document.querySelectorAll(".background-options img").forEach(img => img.classList.remove("selected"));
   imgEl.classList.add("selected");
