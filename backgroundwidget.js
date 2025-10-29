@@ -64,37 +64,40 @@ function createBackgroundWidget() {
     minimizeBtn.textContent = minimized ? "+" : "−";
   });
 
-  let isDragging = false, startX, startY, startLeft, startTop;
+// Enable true dragging on the entire window
+let isDragging = false, startX, startY, startLeft, startTop;
 
-  widget.addEventListener("mousedown", (e) => {
-    if (e.target.tagName === "IMG" || e.target.tagName === "BUTTON") return;
-    isDragging = true;
-    widget.classList.add("dragging");
-    startX = e.clientX;
-    startY = e.clientY;
-    const rect = widget.getBoundingClientRect();
-    startLeft = rect.left;
-    startTop = rect.top;
-  });
+widget.addEventListener("mousedown", (e) => {
+  // Only start dragging if clicking on panel background, not buttons/images
+  if (e.target.tagName === "IMG" || e.target.tagName === "BUTTON") return;
+  
+  isDragging = true;
+  widget.classList.add("dragging");
+  startX = e.clientX;
+  startY = e.clientY;
+  const rect = widget.getBoundingClientRect();
+  startLeft = rect.left;
+  startTop = rect.top;
 
-  document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    widget.style.left = startLeft + dx + "px";
-    widget.style.top = startTop + dy + "px";
-  });
+  e.preventDefault();
+});
 
-  document.addEventListener("mouseup", () => {
-    if (isDragging) {
-      localStorage.setItem("widgetPosition", JSON.stringify({
-        top: widget.style.top,
-        left: widget.style.left
-      }));
-    }
-    isDragging = false;
-    widget.classList.remove("dragging");
-  });
-}
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+  widget.style.left = startLeft + dx + "px";
+  widget.style.top = startTop + dy + "px";
+});
+
+document.addEventListener("mouseup", () => {
+  if (!isDragging) return;
+  isDragging = false;
+  widget.classList.remove("dragging");
+  localStorage.setItem("widgetPosition", JSON.stringify({
+    top: widget.style.top,
+    left: widget.style.left
+  }));
+});
 
 document.addEventListener("DOMContentLoaded", createBackgroundWidget);
