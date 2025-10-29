@@ -18,21 +18,19 @@ showBtn.addEventListener("click", () => {
   confirmBox.classList.remove("hidden");
   previewImg.classList.remove("hidden");
   previewImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
+
+  // Save last model ID for lobby
+  localStorage.setItem("lastModelID", modelID);
 });
 
 // Yes button: save player and go to lobby
 yesBtn.addEventListener("click", () => {
   const username = usernameInput.value.trim();
-  const modelID = modelIDInput.value.trim();
-  if (!username || !modelID) return;
+  if (!username) return;
 
-  // Save player name in localStorage
   let players = JSON.parse(localStorage.getItem("players") || "[]");
   players.push(username);
   localStorage.setItem("players", JSON.stringify(players));
-
-  // Save modelID for avatar display
-  localStorage.setItem("lastModelID", modelID);
 
   // Redirect to lobby
   window.location.href = "lobby.html";
