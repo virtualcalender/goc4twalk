@@ -101,3 +101,54 @@ document.addEventListener("mouseup", () => {
 });
 
 document.addEventListener("DOMContentLoaded", createBackgroundWidget);
+const widget = document.getElementById("backgroundWidget");
+const handle = document.getElementById("dragHandle");
+const bgImages = document.querySelectorAll(".bg-options img");
+
+// --- Draggable functionality ---
+let isDragging = false, startX, startY, startLeft, startTop;
+
+handle.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  widget.classList.add("dragging");
+  startX = e.clientX;
+  startY = e.clientY;
+  const rect = widget.getBoundingClientRect();
+  startLeft = rect.left;
+  startTop = rect.top;
+  e.preventDefault();
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+  widget.style.left = startLeft + dx + "px";
+  widget.style.top = startTop + dy + "px";
+});
+
+document.addEventListener("mouseup", () => {
+  if (!isDragging) return;
+  isDragging = false;
+  widget.classList.remove("dragging");
+  localStorage.setItem("widgetPosition", JSON.stringify({
+    top: widget.style.top,
+    left: widget.style.left
+  }));
+});
+
+// --- Load previous position if saved ---
+const savedPos = JSON.parse(localStorage.getItem("widgetPosition"));
+if (savedPos) {
+  widget.style.top = savedPos.top;
+  widget.style.left = savedPos.left;
+}
+
+// --- Background selection ---
+bgImages.forEach(img => {
+  img.addEventListener("click", () => {
+    document.body.style.backgroundImage = `url(${img.src})`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+  });
+});
