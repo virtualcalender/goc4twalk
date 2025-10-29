@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="lobby-container fade-in">
+  <!-- Lobby / Menu Container -->
+  <div id="lobbyContainer" class="fade-in">
     <h1>GoCatwalk Lobby</h1>
 
     <div id="mainMenu">
@@ -37,12 +38,14 @@
       <h2>Available Rooms</h2>
       <div id="roomList"></div>
     </div>
+  </div>
 
-    <!-- Round screen -->
-    <div id="roundScreen" class="hidden">
+  <!-- Fullscreen Round Screen -->
+  <div id="roundScreen" class="hidden">
+    <div id="roundBackground"></div>
+    <div id="roundContent">
       <h2 id="roundTheme"></h2>
       <div id="countdown"></div>
-      <div id="roundBackground"></div>
     </div>
   </div>
 
