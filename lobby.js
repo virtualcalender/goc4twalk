@@ -4,116 +4,107 @@ const joinGameBtn = document.getElementById("joinGameBtn");
 const hostMenu = document.getElementById("hostMenu");
 const joinMenu = document.getElementById("joinMenu");
 const mainMenu = document.getElementById("mainMenu");
-const playerListHost = document.getElementById("playerListHost");
 const startGameBtn = document.getElementById("startGameBtn");
-const themeInput = document.getElementById("theme");
-const backgroundUrlInput = document.getElementById("backgroundUrl");
-const timerInput = document.getElementById("timer");
-
+const playerListHost = document.getElementById("playerListHost");
+const roomList = document.getElementById("roomList");
 const roundScreen = document.getElementById("roundScreen");
+const roundBackground = document.getElementById("roundBackground");
 const roundTheme = document.getElementById("roundTheme");
 const countdownEl = document.getElementById("countdown");
-const roundBackground = document.getElementById("roundBackground");
+const playersDuringRound = document.getElementById("playersDuringRound");
 
-// Dummy players array (from main.js/localStorage)
+// Mock localStorage for rooms
+let rooms = JSON.parse(localStorage.getItem("rooms") || "[]");
 let players = JSON.parse(localStorage.getItem("players") || "[]");
+let currentRoom = null;
 
-// Show Host Menu
+// Show host menu
 hostGameBtn.addEventListener("click", () => {
+  mainMenu.classList.add("hidden");
   hostMenu.classList.remove("hidden");
   joinMenu.classList.add("hidden");
-  mainMenu.style.display = "none";
   renderPlayers();
 });
 
-// Show Join Menu
+// Show join menu
 joinGameBtn.addEventListener("click", () => {
-  joinMenu.classList.remove("hidden");
+  mainMenu.classList.add("hidden");
   hostMenu.classList.add("hidden");
-  mainMenu.style.display = "none";
+  joinMenu.classList.remove("hidden");
   renderRooms();
 });
 
-// Render players for host
+// Render players in host room
 function renderPlayers() {
   playerListHost.innerHTML = "";
-  players.forEach(p => {
+  players.forEach(player => {
     const div = document.createElement("div");
-    div.className = "player-bubble";
-    div.innerHTML = `<img src="${p.avatar}" alt="${p.name}"><p>${p.name}</p>`;
+    div.classList.add("player-item");
+    div.innerHTML = `
+      <img src="https://gosupermodel.com/dollservlet.png?model=${player.id}&large=1" alt="avatar">
+      <span>${player.name}</span>
+    `;
     playerListHost.appendChild(div);
   });
 }
 
-// Dummy function for join rooms
+// Render available rooms
 function renderRooms() {
-  const roomList = document.getElementById("roomList");
-  roomList.innerHTML = "<p>No rooms available yet.</p>";
+  roomList.innerHTML = "";
+  rooms.forEach((room, idx) => {
+    const div = document.createElement("div");
+    div.classList.add("player-item");
+    div.innerHTML = `
+      <strong>${room.name}</strong>
+      <button onclick="joinRoom(${idx})">Join</button>
+    `;
+    roomList.appendChild(div);
+  });
 }
 
-// Start Round
+// Start round
 startGameBtn.addEventListener("click", () => {
-  // Hide lobby
-  document.getElementById("lobbyContainer").classList.add("hidden");
-
-  // Show round screen
+  hostMenu.classList.add("hidden");
   roundScreen.classList.remove("hidden");
 
-  // Show theme and background
-  const theme = themeInput.value || "No Theme";
-  const bgUrl = backgroundUrlInput.value || "";
+  const theme = document.getElementById("theme").value;
+  const bgUrl = document.getElementById("backgroundUrl").value;
+  const timerMinutes = parseInt(document.getElementById("timer").value);
 
   roundTheme.textContent = theme;
-  if (bgUrl) {
-    roundBackground.style.backgroundImage = `url('${bgUrl}')`;
-  } else {
-    roundBackground.style.backgroundImage = "none";
-  }
+  if(bgUrl) roundBackground.style.backgroundImage = `url(${bgUrl})`;
 
-  // Countdown timer in minutes
-  let timeLeft = parseInt(timerInput.value || 10) * 60;
+  let timeLeft = timerMinutes * 60;
   countdownEl.textContent = formatTime(timeLeft);
 
-  const timerInterval = setInterval(() => {
+  const countdownInterval = setInterval(() => {
     timeLeft--;
     countdownEl.textContent = formatTime(timeLeft);
-
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      // Blackout
-      roundBackground.style.backgroundImage = "none";
-      roundScreen.style.backgroundColor = "black";
-
-      setTimeout(() => {
-        showAllAvatars();
-      }, 30000);
+    if(timeLeft <= 0) {
+      clearInterval(countdownInterval);
+      // After countdown, show players next to each other
+      playersDuringRound.innerHTML = "";
+      players.forEach(player => {
+        const div = document.createElement("div");
+        div.classList.add("player-item");
+        div.innerHTML = `
+          <img src="https://gosupermodel.com/dollservlet.png?model=${player.id}&large=1" alt="avatar">
+          <span>${player.name}</span>
+        `;
+        playersDuringRound.appendChild(div);
+      });
     }
   }, 1000);
 });
 
+// Helpers
 function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
-  return `${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+  return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
 }
 
-// Show all avatars after round
-function showAllAvatars() {
-  roundScreen.innerHTML = "";
-  const avatarContainer = document.createElement("div");
-  avatarContainer.style.display = "flex";
-  avatarContainer.style.justifyContent = "center";
-  avatarContainer.style.flexWrap = "wrap";
-  avatarContainer.style.height = "100vh";
-  avatarContainer.style.alignItems = "center";
-  avatarContainer.style.backgroundColor = "black";
-
-  players.forEach(p => {
-    const div = document.createElement("div");
-    div.style.margin = "10px";
-    div.innerHTML = `<img src="${p.avatar}" style="width:100px; height:100px; object-fit:cover; border-radius:50%;"><p style="color:white; text-align:center;">${p.name}</p>`;
-    avatarContainer.appendChild(div);
-  });
-
-  roundScreen.appendChild(avatarContainer);
+// Join room placeholder
+function joinRoom(idx) {
+  alert(`Joining room: ${rooms[idx].name}`);
 }
