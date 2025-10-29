@@ -2,32 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GoCatwalk Login</title>
+  <title>GoCatwalk Lobby</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="login-container fade-in">
-    <h1>GoCatwalk</h1>
-    <p class="subtitle">Enter your name and GoSuperModel ID</p>
+    <h1>GoCatwalk Lobby</h1>
+    
+    <!-- User info -->
+    <div class="user-info">
+      <img id="userAvatar" src="" alt="User Avatar">
+      <p id="usernameDisplay"></p>
+    </div>
 
-    <form id="loginForm">
-      <label for="username">Name:</label>
-      <input id="username" placeholder="Enter your name" />
-
-      <label for="modelID">GoSuperModel ID:</label>
-      <input id="modelID" placeholder="Enter your GoSuperModel ID" />
-
-      <button type="button" id="showBtn">Is this you?</button>
-    </form>
-
-    <div class="preview hidden" id="confirmBox">
-      <img id="previewImg" class="hidden" src="" alt="Model Preview">
-      <p>Is this you?</p>
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+    <!-- Host/Join buttons -->
+    <div class="lobby-buttons">
+      <button id="hostBtn">Host Game</button>
+      <button id="joinBtn">Join Game</button>
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <script src="lobby.js"></script>
 </body>
 </html>
