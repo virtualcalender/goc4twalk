@@ -286,6 +286,107 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #ffe6f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #4a235a;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.game-container {
+  text-align: center;
+}
+
+#roundTitle {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #ff4fae;
+}
+
+.runway {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto 1.5rem;
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center top;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+#playerAvatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 3px solid #ff7ecb;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#playerName {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.menu {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu label {
+  display: block;
+  margin-top: 10px;
+}
+
+.menu input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid #ffd1e8;
+  margin-top: 4px;
+}
+
+.menu button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: #ff7ecb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background-color: #ff4fae;
+}
+
 
 
 
