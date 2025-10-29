@@ -1,24 +1,14 @@
-const addPlayerBtn = document.getElementById("addPlayerBtn");
-const newPlayerInput = document.getElementById("newPlayer");
 const playerList = document.getElementById("playerList");
 const startGameBtn = document.getElementById("startGameBtn");
 
-// Store players in an array
-let players = [];
+// Load players from localStorage
+let players = JSON.parse(localStorage.getItem("players") || "[]");
+updatePlayerList();
 
-// Add player function
-addPlayerBtn.addEventListener("click", () => {
-  const name = newPlayerInput.value.trim();
-  if (!name) return alert("Enter a player name!");
-  players.push(name);
-  updatePlayerList();
-  newPlayerInput.value = "";
-});
-
-// Update the list in the HTML
+// Update the player list UI
 function updatePlayerList() {
   playerList.innerHTML = "";
-  players.forEach((player, index) => {
+  players.forEach(player => {
     const li = document.createElement("li");
     li.textContent = player;
     playerList.appendChild(li);
@@ -27,7 +17,10 @@ function updatePlayerList() {
 
 // Start game button
 startGameBtn.addEventListener("click", () => {
-  if (players.length < 2) return alert("Need at least 2 players to start!");
+  if (players.length < 2) {
+    alert("Need at least 2 players to start!");
+    return;
+  }
   alert(`Starting the game with ${players.length} players!`);
-  // TODO: Redirect to next game page or start the round
+  // TODO: redirect to the first round page
 });
