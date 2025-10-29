@@ -91,258 +91,7 @@ button:hover {
   display: none;
 }
 
-/* 🌸 Floating draggable background panel */
-.draggable-panel {
-  position: fixed;
-  top: 80px;
-  left: 40px;
-  width: 320px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  padding: 1rem;
-  text-align: center;
-  z-index: 10000;
-  cursor: grab;
-  user-select: none;
-  transition: transform 0.2s ease, opacity 0.2s;
-}
-
-.draggable-panel.dragging {
-  opacity: 0.9;
-  cursor: grabbing;
-}
-
-.draggable-panel h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
-  color: #ff4fae;
-}
-
-.background-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: center;
-}
-
-.background-options img {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.2s, border-color 0.2s;
-}
-
-.background-options img:hover {
-  transform: scale(1.05);
-}
-
-.background-options img.selected {
-  border-color: #ff4fae;
-}
-
-.avatar-preview {
-  margin-top: 0.5rem;
-  text-align: center;
-}
-
-.avatar-container {
-  position: relative;
-  width: 180px;
-  height: 260px;
-  margin: 0 auto;
-}
-
-.bg-layer {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.avatar-layer {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-}
-
-.minimize-btn {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: #ff4fae;
-  font-weight: bold;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-/* --- FIX: Make floating widget truly independent --- */
-body {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Ensure the floating widget never gets centered by flexbox */
-.draggable-panel {
-  position: fixed !important;
-  top: 60px !important;
-  left: 60px !important;
-  z-index: 9999 !important;
-  transform: none !important;
-}
-
-.draggable-panel.dragging {
-  opacity: 0.9;
-  cursor: grabbing;
-  transform: none !important;
-}
-/* --- Draggable Panel Styling --- */
-.draggable-panel {
-  position: fixed;
-  top: 60px;
-  left: 60px;
-  width: 250px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  padding: 10px;
-  z-index: 9999;
-  cursor: grab;
-}
-
-.drag-handle {
-  background: #ff7ecb;
-  color: white;
-  text-align: center;
-  padding: 5px;
-  border-radius: 10px 10px 0 0;
-  margin: -10px -10px 10px -10px;
-  font-weight: bold;
-  cursor: grab;
-}
-
-.draggable-panel.dragging .drag-handle {
-  cursor: grabbing;
-  opacity: 0.9;
-}
-
-.bg-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.bg-options img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.bg-options img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-/* 🌸 Floating background selector panel */
-.side-panel {
-  position: absolute;
-  top: 50%;
-  left: 3%;
-  transform: translateY(-50%);
-  background: white;
-  padding: 1.5rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 320px;
-  text-align: center;
-  color: #4a235a;
-  z-index: 10;
-}
-
-.side-panel h3 {
-  color: #ff4fae;
-  margin-bottom: 1rem;
-}
-
-/* Background thumbnails */
-.background-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.background-options img {
-  width: 75px;
-  height: 75px;
-  border-radius: 10px;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.2s, border-color 0.2s;
-}
-
-.background-options img:hover {
-  transform: scale(1.05);
-}
-
-.background-options img.selected {
-  border-color: #ff4fae;
-}
-
-/* Avatar preview on top of background */
-.avatar-preview {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.avatar-container {
-  position: relative;
-  width: 200px;
-  height: 300px;
-  margin: 0 auto;
-}
-
-.bg-layer {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.avatar-layer {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  z-index: 2;
-}
-
-#continueBtn {
-  background-color: #ff7ecb;
-  border: none;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-
-#continueBtn:hover {
-  background-color: #ff4fae;
-  transform: scale(1.03);
-}
+/* Floating background picker */
 #backgroundPicker {
   position: fixed;
   top: 50%;
@@ -352,15 +101,19 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   padding: 1rem;
-  width: 220px;
+  width: 240px;
   z-index: 9999;
-  cursor: move;
+  cursor: grab;
 }
 
-#backgroundPicker h3 {
-  margin-top: 0;
-  color: #4a235a;
-  font-size: 1rem;
+#dragHandle {
+  background: #ff7ecb;
+  color: white;
+  font-weight: bold;
+  padding: 6px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: grab;
   text-align: center;
 }
 
@@ -368,7 +121,6 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  margin-top: 10px;
 }
 
 #backgroundOptions img {
@@ -382,6 +134,10 @@ body {
 #backgroundOptions img:hover {
   transform: scale(1.1);
   box-shadow: 0 0 10px #ffb6d6;
+}
+
+.hidden {
+  display: none !important;
 }
 
 
