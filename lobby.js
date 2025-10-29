@@ -3,6 +3,7 @@ const hostGameBtn = document.getElementById("hostGameBtn");
 const joinGameBtn = document.getElementById("joinGameBtn");
 const hostMenu = document.getElementById("hostMenu");
 const joinMenu = document.getElementById("joinMenu");
+const mainMenu = document.getElementById("mainMenu");
 const playerListHost = document.getElementById("playerListHost");
 const startGameBtn = document.getElementById("startGameBtn");
 const themeInput = document.getElementById("theme");
@@ -52,6 +53,7 @@ function renderRooms() {
 
 // Start Round
 startGameBtn.addEventListener("click", () => {
+  document.getElementById("lobbyContainer").classList.add("hidden");
   roundScreen.classList.remove("hidden");
 
   // Show theme and background
@@ -62,12 +64,14 @@ startGameBtn.addEventListener("click", () => {
   if (bgUrl) {
     roundBackground.style.backgroundImage = `url('${bgUrl}')`;
     roundBackground.style.backgroundSize = "cover";
-    roundBackground.style.width = "100%";
-    roundBackground.style.height = "100%";
+    roundBackground.style.width = "100vw";
+    roundBackground.style.height = "100vh";
     roundBackground.style.position = "absolute";
     roundBackground.style.top = "0";
     roundBackground.style.left = "0";
     roundBackground.style.zIndex = "-1";
+  } else {
+    roundBackground.style.backgroundImage = "none";
   }
 
   // Countdown timer
@@ -80,9 +84,9 @@ startGameBtn.addEventListener("click", () => {
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
-      // Show all avatars after 30s black screen
       roundBackground.style.backgroundImage = "none";
-      roundScreen.style.background = "black";
+      roundScreen.style.backgroundColor = "black";
+
       setTimeout(() => {
         showAllAvatars();
       }, 30000);
@@ -103,6 +107,9 @@ function showAllAvatars() {
   avatarContainer.style.display = "flex";
   avatarContainer.style.justifyContent = "center";
   avatarContainer.style.flexWrap = "wrap";
+  avatarContainer.style.height = "100vh";
+  avatarContainer.style.alignItems = "center";
+  avatarContainer.style.backgroundColor = "black";
 
   players.forEach(p => {
     const div = document.createElement("div");
