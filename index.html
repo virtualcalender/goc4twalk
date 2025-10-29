@@ -6,40 +6,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="login-container fade-in">
-    <h1>GoCatwalk</h1>
-    <p class="subtitle">Enter your name and GoSuperModel ID</p>
-
-    <form>
-      <label for="username">Name:</label>
-      <input id="username" placeholder="Enter your name" />
-
-      <label for="modelID">GoSupermodel ID:</label>
-      <input id="modelID" placeholder="Enter your GoSuperModel ID" />
-
-      <button type="button" id="showBtn">Check my model!</button>
-    </form>
-
-    <div class="preview hidden" id="confirmBox">
-      <img id="previewImg" class="hidden" src="" alt="Model Preview">
-      <p>Is this you?</p>
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
-    </div>
-
-    <!-- Background selector -->
-    <div class="background-selector hidden" id="backgroundSelector">
-      <h3>Choose your Catwalk Background</h3>
+  <div class="page-container fade-in">
+    <!-- Left side: background selector + avatar preview -->
+    <div class="side-panel hidden" id="sidePanel">
+      <h3>✨ Choose Your Catwalk Background</h3>
       <div class="background-options" id="backgroundOptions"></div>
+
+      <div class="avatar-preview hidden" id="avatarPreview">
+        <div class="avatar-container">
+          <img id="bgImage" alt="Background" class="bg-layer">
+          <img id="avatarImg" alt="Your Avatar" class="avatar-layer">
+        </div>
+        <button id="continueBtn">Continue to Lobby</button>
+      </div>
     </div>
 
-    <!-- Avatar preview -->
-    <div class="avatar-preview hidden" id="avatarPreview">
-      <div class="avatar-container">
-        <img id="bgImage" alt="Background" class="bg-layer">
-        <img id="avatarImg" alt="Your Avatar" class="avatar-layer">
+    <!-- Right side: login box -->
+    <div class="login-container">
+      <h1>GoCatwalk</h1>
+      <p class="subtitle">Enter your name and GoSuperModel ID</p>
+
+      <form>
+        <label for="username">Name:</label>
+        <input id="username" placeholder="Enter your name" />
+
+        <label for="modelID">GoSupermodel ID:</label>
+        <input id="modelID" placeholder="Enter your GoSuperModel ID" />
+
+        <button type="button" id="showBtn">Check my model!</button>
+      </form>
+
+      <div class="preview hidden" id="confirmBox">
+        <img id="previewImg" class="hidden" src="" alt="Model Preview">
+        <p>Is this you?</p>
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
       </div>
-      <button id="continueBtn">Continue to Lobby</button>
     </div>
   </div>
 
