@@ -7,21 +7,43 @@
 </head>
 <body>
   <div class="lobby-container fade-in">
-    <h1>Lobby</h1>
-
-    <!-- User info -->
+    <h1>GoCatwalk Lobby</h1>
     <div class="user-info">
-      <img id="userAvatar" src="" alt="User Avatar">
-      <p id="usernameDisplay"></p>
+      <div class="avatar">
+        <img id="playerAvatar" src="" alt="Player Avatar">
+      </div>
+      <p id="playerName"></p>
     </div>
 
-    <!-- Lobby buttons -->
-    <div class="lobby-buttons">
+    <div class="menu-buttons">
       <button id="hostBtn">Host Game</button>
       <button id="joinBtn">Join Game</button>
     </div>
 
-    <ul id="playerList"></ul>
+    <!-- Host Menu -->
+    <div class="menu hidden" id="hostMenu">
+      <h2>Host Game</h2>
+      <label for="themeInput">Theme:</label>
+      <input id="themeInput" placeholder="Enter theme">
+
+      <label for="rulesInput">Rules:</label>
+      <textarea id="rulesInput" placeholder="Enter rules"></textarea>
+
+      <button id="startGameBtn">Start Game</button>
+    </div>
+
+    <!-- Join Menu -->
+    <div class="menu hidden" id="joinMenu">
+      <h2>Join Game</h2>
+      <ul id="gameList">
+        <!-- Dynamically filled with available games -->
+      </ul>
+    </div>
+
+    <!-- Player Bubbles -->
+    <div class="player-bubbles" id="playerBubbles">
+      <!-- Player avatars appear here in circles -->
+    </div>
   </div>
 
   <script src="lobby.js"></script>
