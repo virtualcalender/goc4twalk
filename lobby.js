@@ -7,48 +7,76 @@ const joinMenu = document.getElementById("joinMenu");
 const playerAvatar = document.getElementById("playerAvatar");
 const playerName = document.getElementById("playerName");
 
-// Host inputs
 const playerListHost = document.getElementById("playerListHost");
 const themeInput = document.getElementById("theme");
 const backgroundUrlInput = document.getElementById("backgroundUrl");
 const timerInput = document.getElementById("timer");
 const startGameBtn = document.getElementById("startGameBtn");
+const availableRooms = document.getElementById("availableRooms");
 
 let currentPlayer = JSON.parse(localStorage.getItem("currentPlayer") || "{}");
 playerName.textContent = currentPlayer.name || "Player";
 playerAvatar.src = currentPlayer.avatar || "default-avatar.png";
 
 // Room data
-let currentRoom = null;
+let currentRoom = JSON.parse(localStorage.getItem("currentRoom") || null);
 
-// Show host/join menus
+// --- Helper to render players for host ---
+function updateHostPlayerList() {
+  if (!currentRoom) return;
+  playerListHost.innerHTML = "";
+  currentRoom.players.forEach((p, index) => {
+    const div = document.createElement("div");
+    div.classList.add("player-bubble");
+    div.innerHTML = `
+      <img src="${p.avatar || 'default-avatar.png'}" alt="${p.name}">
+      <p>${p.name}</p>
+      ${p.name !== currentRoom.host.name ? `<button class="kickBtn" data-index="${index}">Kick</button>` : ""}
+    `;
+    playerListHost.appendChild(div);
+  });
+
+  // Add kick event listeners
+  const kickButtons = document.querySelectorAll(".kickBtn");
+  kickButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = btn.getAttribute("data-index");
+      currentRoom.players.splice(idx, 1);
+      localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
+      updateHostPlayerList();
+    });
+  });
+}
+
+// --- Host game ---
 hostBtn.addEventListener("click", () => {
   hostMenu.classList.remove("hidden");
   joinMenu.classList.add("hidden");
 
-  // Create a new room
-  currentRoom = {
-    name: `${currentPlayer.name}'s Room`,
-    host: currentPlayer,
-    players: [currentPlayer],
-    theme: "",
-    background: "",
-    duration: 10,
-    started: false
-  };
+  if (!currentRoom) {
+    currentRoom = {
+      name: `${currentPlayer.name}'s Room`,
+      host: currentPlayer,
+      players: [currentPlayer],
+      theme: "",
+      background: "",
+      duration: 10,
+      started: false
+    };
+    localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
+  }
 
-  localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
   updateHostPlayerList();
 });
 
+// --- Join game ---
 joinBtn.addEventListener("click", () => {
   joinMenu.classList.remove("hidden");
   hostMenu.classList.add("hidden");
 
-  // Load available rooms (for now just from localStorage)
-  const room = JSON.parse(localStorage.getItem("currentRoom"));
-  const availableRooms = document.getElementById("availableRooms");
+  // Render available rooms
   availableRooms.innerHTML = "";
+  const room = JSON.parse(localStorage.getItem("currentRoom"));
   if (room && !room.started) {
     const li = document.createElement("li");
     li.textContent = room.name;
@@ -57,28 +85,15 @@ joinBtn.addEventListener("click", () => {
   }
 });
 
-// Update host player list
-function updateHostPlayerList() {
-  playerListHost.innerHTML = "";
-  currentRoom.players.forEach(p => {
-    const div = document.createElement("div");
-    div.classList.add("player-bubble");
-    div.innerHTML = `<img src="${p.avatar || 'default-avatar.png'}" alt="${p.name}"><p>${p.name}</p>`;
-    playerListHost.appendChild(div);
-  });
-}
-
-// Join room
+// --- Join room ---
 function joinRoom(room) {
   room.players.push(currentPlayer);
   currentRoom = room;
-  localStorage.setItem("currentRoom", JSON.stringify(room));
+  localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
   alert(`Joined room: ${room.name}`);
-  updateHostPlayerList();
-  hostMenu.classList.add("hidden");
 }
 
-// Start game
+// --- Start game ---
 startGameBtn.addEventListener("click", () => {
   const theme = themeInput.value.trim();
   const background = backgroundUrlInput.value.trim();
@@ -104,5 +119,5 @@ startGameBtn.addEventListener("click", () => {
   }
 
   alert(`Game started! Round duration: ${duration} minutes`);
-  // TODO: Redirect to round/game page
+  // TODO: Redirect to game page
 });
