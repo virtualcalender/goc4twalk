@@ -21,11 +21,18 @@
       <button id="joinBtn">Join Game</button>
     </div>
 
-    <!-- Host menu -->
-    <div id="hostMenu" class="hidden">
-      <h2>Room Settings</h2>
+    <!-- Host Room View -->
+    <div id="hostRoom" class="hidden">
+      <h2 id="roomTitle">Your Room</h2>
 
       <div id="playerListHost" class="player-list-host"></div>
+
+      <button id="editRoundBtn">Edit Round Settings</button>
+    </div>
+
+    <!-- Round Settings Panel -->
+    <div id="roundSettings" class="hidden">
+      <h2>Round Settings</h2>
 
       <label for="theme">Round Theme:</label>
       <input type="text" id="theme" placeholder="Enter round theme">
@@ -36,10 +43,10 @@
       <label for="timer">Round Duration (minutes):</label>
       <input type="number" id="timer" min="5" max="30" value="10">
 
-      <button id="startGameBtn">Start Game</button>
+      <button id="startRoundBtn">Start Round</button>
     </div>
 
-    <!-- Join menu -->
+    <!-- Join Menu -->
     <div id="joinMenu" class="hidden">
       <h2>Available Rooms</h2>
       <ul id="availableRooms"></ul>
