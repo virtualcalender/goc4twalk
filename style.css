@@ -182,3 +182,24 @@ button:hover {
   font-size: 1.2rem;
   cursor: pointer;
 }
+/* --- FIX: Make floating widget truly independent --- */
+body {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure the floating widget never gets centered by flexbox */
+.draggable-panel {
+  position: fixed !important;
+  top: 60px !important;
+  left: 60px !important;
+  z-index: 9999 !important;
+  transform: none !important;
+}
+
+.draggable-panel.dragging {
+  opacity: 0.9;
+  cursor: grabbing;
+  transform: none !important;
+}
+
