@@ -7,9 +7,7 @@ const editRoundBtn = document.getElementById("editRoundBtn");
 const roundSettings = document.getElementById("roundSettings");
 const startRoundBtn = document.getElementById("startRoundBtn");
 const playerListHost = document.getElementById("playerListHost");
-const roomTitle = document.getElementById("roomTitle");
 const availableRooms = document.getElementById("availableRooms");
-
 const playerAvatar = document.getElementById("playerAvatar");
 const playerName = document.getElementById("playerName");
 
@@ -24,6 +22,8 @@ let currentRoom = null;
 
 // --- HOST GAME ---
 hostBtn.addEventListener("click", () => {
+  console.log("Host button clicked!"); // Debug line
+
   // Create a new room
   const room = {
     id: Date.now(),
@@ -36,25 +36,56 @@ hostBtn.addEventListener("click", () => {
     duration: 10
   };
 
+  // Save to localStorage
   allRooms.push(room);
   localStorage.setItem("allRooms", JSON.stringify(allRooms));
   localStorage.setItem("currentRoom", JSON.stringify(room));
-
   currentRoom = room;
 
-  // Show host interface
+  // Display host view
   hostRoom.classList.remove("hidden");
   joinMenu.classList.add("hidden");
+  roundSettings.classList.add("hidden");
   updatePlayerList();
-  updateAvailableRooms();
 });
 
 // --- JOIN GAME ---
 joinBtn.addEventListener("click", () => {
-  // Show list of available rooms (but don’t create one)
   joinMenu.classList.remove("hidden");
   hostRoom.classList.add("hidden");
+  roundSettings.classList.add("hidden");
   updateAvailableRooms();
+});
+
+// --- Edit Round Settings ---
+editRoundBtn.addEventListener("click", () => {
+  roundSettings.classList.remove("hidden");
+});
+
+// --- Start Round ---
+startRoundBtn.addEventListener("click", () => {
+  const theme = document.getElementById("theme").value.trim();
+  const background = document.getElementById("backgroundUrl").value.trim();
+  const duration = parseInt(document.getElementById("timer").value);
+
+  if (!theme) return alert("Please enter a theme first!");
+
+  currentRoom.theme = theme;
+  currentRoom.background = background;
+  currentRoom.duration = duration;
+  currentRoom.started = true;
+
+  // Save back
+  allRooms = allRooms.map(r => (r.id === currentRoom.id ? currentRoom : r));
+  localStorage.setItem("allRooms", JSON.stringify(allRooms));
+
+  if (background) {
+    document.body.style.backgroundImage = `url(${background})`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+  }
+
+  alert(`Round started!\nTheme: ${theme}\nDuration: ${duration} min`);
 });
 
 // --- Show available rooms ---
@@ -83,50 +114,15 @@ function joinRoom(roomId) {
   const room = rooms.find(r => r.id === roomId);
   if (!room) return alert("Room not found!");
 
-  // Add player if not already in
   const alreadyJoined = room.players.some(p => p.name === currentPlayer.name);
-  if (!alreadyJoined) {
-    room.players.push(currentPlayer);
-  }
+  if (!alreadyJoined) room.players.push(currentPlayer);
 
-  // Save back
   const updatedRooms = rooms.map(r => (r.id === roomId ? room : r));
   localStorage.setItem("allRooms", JSON.stringify(updatedRooms));
   localStorage.setItem("currentRoom", JSON.stringify(room));
 
   alert(`Joined ${room.name}`);
 }
-
-// --- Edit Round Settings ---
-editRoundBtn.addEventListener("click", () => {
-  roundSettings.classList.remove("hidden");
-});
-
-// --- Start Round ---
-startRoundBtn.addEventListener("click", () => {
-  const theme = document.getElementById("theme").value.trim();
-  const background = document.getElementById("backgroundUrl").value.trim();
-  const duration = parseInt(document.getElementById("timer").value);
-
-  if (!theme) return alert("Please enter a theme first!");
-
-  currentRoom.theme = theme;
-  currentRoom.background = background;
-  currentRoom.duration = duration;
-  currentRoom.started = true;
-
-  // Save back to allRooms
-  allRooms = allRooms.map(r => (r.id === currentRoom.id ? currentRoom : r));
-  localStorage.setItem("allRooms", JSON.stringify(allRooms));
-
-  if (background) {
-    document.body.style.backgroundImage = `url(${background})`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-  }
-
-  alert(`Round started!\nTheme: ${theme}\nDuration: ${duration} min`);
-});
 
 // --- Update Host Player List ---
 function updatePlayerList() {
@@ -137,4 +133,21 @@ function updatePlayerList() {
     const div = document.createElement("div");
     div.classList.add("player-bubble");
     div.innerHTML = `
-      <img src="${p.avatar || 'default-avatar.png'}" alt="${p.n
+      <img src="${p.avatar || 'default-avatar.png'}" alt="${p.name}">
+      <p>${p.name}</p>
+      ${p.name !== currentRoom.host.name ? `<button class="kickBtn" data-index="${i}">Kick</button>` : ""}
+    `;
+    playerListHost.appendChild(div);
+  });
+
+  // Kick buttons
+  document.querySelectorAll(".kickBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = btn.getAttribute("data-index");
+      currentRoom.players.splice(idx, 1);
+      allRooms = allRooms.map(r => (r.id === currentRoom.id ? currentRoom : r));
+      localStorage.setItem("allRooms", JSON.stringify(allRooms));
+      updatePlayerList();
+    });
+  });
+}
