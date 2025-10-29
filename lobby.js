@@ -1,3 +1,4 @@
+// Elements
 const hostGameBtn = document.getElementById("hostGameBtn");
 const joinGameBtn = document.getElementById("joinGameBtn");
 const hostMenu = document.getElementById("hostMenu");
@@ -7,15 +8,33 @@ const startGameBtn = document.getElementById("startGameBtn");
 const themeInput = document.getElementById("theme");
 const backgroundUrlInput = document.getElementById("backgroundUrl");
 const timerInput = document.getElementById("timer");
-const roundScreen = document.getElementById("roundScreen");
-const roundTheme = roundScreen.querySelector(".theme");
-const roundTimer = roundScreen.querySelector(".timer");
 
-let currentPlayer = JSON.parse(localStorage.getItem("currentPlayer"));
+const roundScreen = document.getElementById("roundScreen");
+const roundTheme = document.getElementById("roundTheme");
+const countdownEl = document.getElementById("countdown");
+const roundBackground = document.getElementById("roundBackground");
+
+// Dummy players array
 let players = JSON.parse(localStorage.getItem("players") || "[]");
 
-// Show current player
-function showPlayers() {
+// Show Host Menu
+hostGameBtn.addEventListener("click", () => {
+  hostMenu.classList.remove("hidden");
+  joinMenu.classList.add("hidden");
+  mainMenu.style.display = "none";
+  renderPlayers();
+});
+
+// Show Join Menu
+joinGameBtn.addEventListener("click", () => {
+  joinMenu.classList.remove("hidden");
+  hostMenu.classList.add("hidden");
+  mainMenu.style.display = "none";
+  renderRooms();
+});
+
+// Render players for host
+function renderPlayers() {
   playerListHost.innerHTML = "";
   players.forEach(p => {
     const div = document.createElement("div");
@@ -25,59 +44,72 @@ function showPlayers() {
   });
 }
 
-// HOST GAME
-hostGameBtn.addEventListener("click", () => {
-  hostMenu.classList.remove("hidden");
-  joinMenu.classList.add("hidden");
-  showPlayers();
-});
+// Dummy function for join rooms
+function renderRooms() {
+  const roomList = document.getElementById("roomList");
+  roomList.innerHTML = "<p>No rooms available yet.</p>";
+}
 
-// JOIN GAME
-joinGameBtn.addEventListener("click", () => {
-  joinMenu.classList.remove("hidden");
-  hostMenu.classList.add("hidden");
-  // Placeholder rooms for now
-  document.getElementById("availableRooms").innerHTML = "<p>No active rooms yet.</p>";
-});
-
-// START ROUND
+// Start Round
 startGameBtn.addEventListener("click", () => {
+  roundScreen.classList.remove("hidden");
+
+  // Show theme and background
   const theme = themeInput.value || "No Theme";
   const bgUrl = backgroundUrlInput.value || "";
-  const duration = parseInt(timerInput.value) || 10;
 
-  roundScreen.style.display = "flex";
   roundTheme.textContent = theme;
-  roundTimer.textContent = `${duration}:00`;
+  if (bgUrl) {
+    roundBackground.style.backgroundImage = `url('${bgUrl}')`;
+    roundBackground.style.backgroundSize = "cover";
+    roundBackground.style.width = "100%";
+    roundBackground.style.height = "100%";
+    roundBackground.style.position = "absolute";
+    roundBackground.style.top = "0";
+    roundBackground.style.left = "0";
+    roundBackground.style.zIndex = "-1";
+  }
 
-  if(bgUrl) roundScreen.style.backgroundImage = `url(${bgUrl})`;
+  // Countdown timer
+  let timeLeft = parseInt(timerInput.value || 10) * 60;
+  countdownEl.textContent = formatTime(timeLeft);
 
-  hostMenu.style.display = "none";
-
-  // Countdown
-  let timeLeft = duration * 60; // in seconds
-  const countdown = setInterval(() => {
-    let minutes = Math.floor(timeLeft/60);
-    let seconds = timeLeft % 60;
-    roundTimer.textContent = `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+  const timerInterval = setInterval(() => {
     timeLeft--;
-    if(timeLeft < 0){
-      clearInterval(countdown);
-      roundScreen.style.backgroundImage = "";
-      roundScreen.style.backgroundColor = "black";
-      roundTimer.textContent = "";
-      roundTheme.textContent = "";
+    countdownEl.textContent = formatTime(timeLeft);
 
-      // After 30 seconds, show all avatars
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      // Show all avatars after 30s black screen
+      roundBackground.style.backgroundImage = "none";
+      roundScreen.style.background = "black";
       setTimeout(() => {
-        roundScreen.innerHTML = "";
-        players.forEach(p => {
-          const div = document.createElement("div");
-          div.className = "player-bubble";
-          div.innerHTML = `<img src="${p.avatar}" alt="${p.name}"><p>${p.name}</p>`;
-          roundScreen.appendChild(div);
-        });
+        showAllAvatars();
       }, 30000);
     }
   }, 1000);
 });
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+}
+
+// Show all avatars after round
+function showAllAvatars() {
+  roundScreen.innerHTML = "";
+  const avatarContainer = document.createElement("div");
+  avatarContainer.style.display = "flex";
+  avatarContainer.style.justifyContent = "center";
+  avatarContainer.style.flexWrap = "wrap";
+
+  players.forEach(p => {
+    const div = document.createElement("div");
+    div.style.margin = "10px";
+    div.innerHTML = `<img src="${p.avatar}" style="width:100px; height:100px; object-fit:cover; border-radius:50%;"><p style="color:white; text-align:center;">${p.name}</p>`;
+    avatarContainer.appendChild(div);
+  });
+
+  roundScreen.appendChild(avatarContainer);
+}
