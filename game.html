@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GoCatwalk Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container fade-in">
+    <h1 id="roundTitle">Round 1: Theme</h1>
+
+    <!-- Runway background -->
+    <div class="runway" id="runway">
+      <img id="playerAvatar" src="" alt="Player Avatar">
+      <p id="playerName"></p>
+    </div>
+
+    <!-- Host controls (only visible to host) -->
+    <div class="menu hidden" id="hostRoundMenu">
+      <h2>Host Round Settings</h2>
+
+      <label for="eliminationInput">Players Eliminated This Round:</label>
+      <input id="eliminationInput" type="number" min="0" value="1">
+
+      <label for="themeInput">Theme This Round:</label>
+      <input id="themeInput" placeholder="Enter theme">
+
+      <label for="runwayInput">Runway Background URL:</label>
+      <input id="runwayInput" placeholder="https://example.com/background.jpg">
+
+      <label for="kickInput">Kick Inactive Players After (seconds):</label>
+      <input id="kickInput" type="number" min="10" value="60">
+
+      <button id="kickBtn">Kick Inactive Players</button>
+      <button id="startRoundBtn">Start Round</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
