@@ -1,4 +1,4 @@
-// Example: retrieving player info from localStorage
+// Retrieve current player info
 const playerName = localStorage.getItem("currentPlayerName");
 const playerID = localStorage.getItem("currentPlayerID");
 const isHost = localStorage.getItem("isHost") === "true";
@@ -7,6 +7,11 @@ const playerAvatar = document.getElementById("playerAvatar");
 const playerNameTag = document.getElementById("playerName");
 const runway = document.getElementById("runway");
 const hostMenu = document.getElementById("hostRoundMenu");
+const roundTitle = document.getElementById("roundTitle");
+const nextRoundBtn = document.getElementById("nextRoundBtn");
+
+// Set initial round number
+let currentRound = 1;
 
 if (playerName && playerID) {
   playerNameTag.textContent = playerName;
@@ -14,16 +19,13 @@ if (playerName && playerID) {
 }
 
 // Show host menu if current player is host
-if (isHost) {
-  hostMenu.classList.remove("hidden");
-}
+if (isHost) hostMenu.classList.remove("hidden");
 
-// Host controls (similar as before)
+// Host controls
 const startRoundBtn = document.getElementById("startRoundBtn");
 const kickBtn = document.getElementById("kickBtn");
 
 kickBtn.addEventListener("click", () => {
-  // Example: kick inactive players logic
   alert("Inactive players kicked!");
 });
 
@@ -34,7 +36,31 @@ startRoundBtn.addEventListener("click", () => {
 
   if (!theme) return alert("Please enter a theme!");
 
-  document.getElementById("roundTitle").textContent = `Round 1: ${theme}`;
+  // Update UI for the round
+  roundTitle.textContent = `Round ${currentRound}: ${theme}`;
   if (runwayURL) runway.style.backgroundImage = `url(${runwayURL})`;
+
   alert(`Round started! Eliminate ${elimination} players.`);
+
+  // Hide host menu and show next round button
+  hostMenu.classList.add("hidden");
+  nextRoundBtn.classList.remove("hidden");
+});
+
+// Next round logic
+nextRoundBtn.addEventListener("click", () => {
+  currentRound++;
+  roundTitle.textContent = `Round ${currentRound}`;
+  
+  // Reset host menu inputs
+  document.getElementById("themeInput").value = "";
+  document.getElementById("eliminationInput").value = 1;
+  document.getElementById("runwayInput").value = "";
+  
+  // Show host menu, hide next round button
+  hostMenu.classList.remove("hidden");
+  nextRoundBtn.classList.add("hidden");
+  
+  // Clear runway background
+  runway.style.backgroundImage = "";
 });
