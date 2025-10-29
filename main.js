@@ -1,4 +1,4 @@
-​// DOM elements
+// DOM elements
 const loginForm = document.getElementById("loginForm");
 const preview = document.getElementById("preview");
 const previewImg = document.getElementById("previewImg");
