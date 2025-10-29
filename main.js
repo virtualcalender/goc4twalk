@@ -13,12 +13,14 @@ showBtn.addEventListener("click", () => {
     return;
   }
 
-  // Set image source
-  previewImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
-  previewImg.classList.remove("hidden"); // show the image
-
-  // Show confirmation box
+  // Show the confirmation box first
   confirmBox.classList.remove("hidden");
+
+  // Ensure the image is visible
+  previewImg.classList.remove("hidden");
+
+  // Then set the src so it loads properly
+  previewImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
 });
 
 yesBtn.addEventListener("click", () => {
@@ -32,4 +34,3 @@ noBtn.addEventListener("click", () => {
   previewImg.classList.add("hidden"); // hide image again
   modelIDInput.value = "";
 });
-
