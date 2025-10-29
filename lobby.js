@@ -1,26 +1,27 @@
-const playerList = document.getElementById("playerList");
-const startGameBtn = document.getElementById("startGameBtn");
+// Grab elements
+const usernameDisplay = document.getElementById("usernameDisplay");
+const userAvatar = document.getElementById("userAvatar");
+const hostBtn = document.getElementById("hostBtn");
+const joinBtn = document.getElementById("joinBtn");
 
-// Load players from localStorage
+// Get last logged-in player info from localStorage
 let players = JSON.parse(localStorage.getItem("players") || "[]");
-updatePlayerList();
+let lastPlayer = players[players.length - 1] || "Guest";
+usernameDisplay.textContent = lastPlayer;
 
-// Update the player list UI
-function updatePlayerList() {
-  playerList.innerHTML = "";
-  players.forEach(player => {
-    const li = document.createElement("li");
-    li.textContent = player;
-    playerList.appendChild(li);
-  });
+// For avatar, we can try to store the modelID too
+let lastModelID = localStorage.getItem("lastModelID");
+if (lastModelID) {
+  userAvatar.src = `https://gosupermodel.com/dollservlet.png?model=${lastModelID}&large=1#filter`;
+} else {
+  userAvatar.src = "https://via.placeholder.com/60?text=?"; // fallback
 }
 
-// Start game button
-startGameBtn.addEventListener("click", () => {
-  if (players.length < 2) {
-    alert("Need at least 2 players to start!");
-    return;
-  }
-  alert(`Starting the game with ${players.length} players!`);
-  // TODO: redirect to the first round page
+// Buttons
+hostBtn.addEventListener("click", () => {
+  alert("Hosting a game... (next step: Firebase or your multiplayer logic)");
+});
+
+joinBtn.addEventListener("click", () => {
+  alert("Joining a game... (next step: Firebase or multiplayer logic)");
 });
