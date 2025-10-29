@@ -26,15 +26,25 @@ showBtn.addEventListener("click", () => {
 // Yes button: save player and go to lobby
 yesBtn.addEventListener("click", () => {
   const username = usernameInput.value.trim();
-  if (!username) return;
+  const modelID = modelIDInput.value.trim();
+  if (!username || !modelID) return;
 
+  // Generate avatar URL
+  const avatarURL = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
+
+  // Save player info in localStorage
+  const currentPlayer = { name: username, avatar: avatarURL };
+  localStorage.setItem("currentPlayer", JSON.stringify(currentPlayer));
+
+  // Save player in global players list (optional)
   let players = JSON.parse(localStorage.getItem("players") || "[]");
-  players.push(username);
+  players.push(currentPlayer);
   localStorage.setItem("players", JSON.stringify(players));
 
   // Redirect to lobby
   window.location.href = "lobby.html";
 });
+
 
 // No button: reset inputs
 noBtn.addEventListener("click", () => {
@@ -42,3 +52,4 @@ noBtn.addEventListener("click", () => {
   previewImg.classList.add("hidden");
   modelIDInput.value = "";
 });
+
