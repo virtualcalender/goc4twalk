@@ -18,25 +18,29 @@
     <button id="joinBtn">Join Game</button>
 
     <!-- Host Menu -->
-    <div class="menu hidden" id="hostMenu">
-      <h2>Host Game</h2>
-      <label for="roomNameInput">Room Name:</label>
-      <input id="roomNameInput" placeholder="Enter room name">
+   <div class="menu hidden" id="hostMenu">
+  <h2>Host Game</h2>
+  <label for="roomNameInput">Room Name:</label>
+  <input id="roomNameInput" placeholder="Enter room name">
 
-      <label for="roundsInput">Number of Rounds:</label>
-      <input id="roundsInput" type="number" min="1" value="3">
+  <label for="roundsInput">Number of Rounds:</label>
+  <input id="roundsInput" type="number" min="1" value="3">
 
-      <label for="eliminationInput">Players Eliminated per Round:</label>
-      <input id="eliminationInput" type="number" min="1" value="1">
+  <label for="eliminationInput">Players Eliminated per Round:</label>
+  <input id="eliminationInput" type="number" min="0" value="1">
 
-      <label for="themeInput">Themes (comma separated):</label>
-      <input id="themeInput" placeholder="Theme1, Theme2, ...">
+  <label for="themeInput">Themes (comma separated):</label>
+  <input id="themeInput" placeholder="Theme1, Theme2, ...">
 
-      <label for="kickInput">Kick Inactive Players After (seconds):</label>
-      <input id="kickInput" type="number" min="10" value="60">
+  <label for="runwayInput">Runway Background URL:</label>
+  <input id="runwayInput" placeholder="https://example.com/background.jpg">
 
-      <button id="startGameBtn">Start Game</button>
-    </div>
+  <label for="kickInput">Kick Inactive Players After (seconds):</label>
+  <input id="kickInput" type="number" min="10" value="60">
+
+  <button id="kickBtn">Kick Inactive Players</button>
+  <button id="startGameBtn">Start Game</button>
+</div>
 
     <!-- Join Menu -->
     <div class="menu hidden" id="joinMenu">
