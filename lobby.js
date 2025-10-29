@@ -1,123 +1,140 @@
-// DOM elements
+// --- DOM Elements ---
 const hostBtn = document.getElementById("hostBtn");
 const joinBtn = document.getElementById("joinBtn");
-const hostMenu = document.getElementById("hostMenu");
+const hostRoom = document.getElementById("hostRoom");
 const joinMenu = document.getElementById("joinMenu");
+const editRoundBtn = document.getElementById("editRoundBtn");
+const roundSettings = document.getElementById("roundSettings");
+const startRoundBtn = document.getElementById("startRoundBtn");
+const playerListHost = document.getElementById("playerListHost");
+const roomTitle = document.getElementById("roomTitle");
+const availableRooms = document.getElementById("availableRooms");
 
 const playerAvatar = document.getElementById("playerAvatar");
 const playerName = document.getElementById("playerName");
 
-const playerListHost = document.getElementById("playerListHost");
-const themeInput = document.getElementById("theme");
-const backgroundUrlInput = document.getElementById("backgroundUrl");
-const timerInput = document.getElementById("timer");
-const startGameBtn = document.getElementById("startGameBtn");
-const availableRooms = document.getElementById("availableRooms");
-
+// --- Player Info ---
 let currentPlayer = JSON.parse(localStorage.getItem("currentPlayer") || "{}");
 playerName.textContent = currentPlayer.name || "Player";
 playerAvatar.src = currentPlayer.avatar || "default-avatar.png";
 
-// Room data
-let currentRoom = JSON.parse(localStorage.getItem("currentRoom") || null);
+// --- Room Data ---
+let allRooms = JSON.parse(localStorage.getItem("allRooms") || "[]");
+let currentRoom = null;
 
-// --- Helper to render players for host ---
-function updateHostPlayerList() {
-  if (!currentRoom) return;
-  playerListHost.innerHTML = "";
-  currentRoom.players.forEach((p, index) => {
-    const div = document.createElement("div");
-    div.classList.add("player-bubble");
-    div.innerHTML = `
-      <img src="${p.avatar || 'default-avatar.png'}" alt="${p.name}">
-      <p>${p.name}</p>
-      ${p.name !== currentRoom.host.name ? `<button class="kickBtn" data-index="${index}">Kick</button>` : ""}
-    `;
-    playerListHost.appendChild(div);
-  });
-
-  // Add kick event listeners
-  const kickButtons = document.querySelectorAll(".kickBtn");
-  kickButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const idx = btn.getAttribute("data-index");
-      currentRoom.players.splice(idx, 1);
-      localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
-      updateHostPlayerList();
-    });
-  });
-}
-
-// --- Host game ---
+// --- HOST GAME ---
 hostBtn.addEventListener("click", () => {
-  hostMenu.classList.remove("hidden");
-  joinMenu.classList.add("hidden");
+  // Create a new room
+  const room = {
+    id: Date.now(),
+    name: `${currentPlayer.name}'s Room`,
+    host: currentPlayer,
+    players: [currentPlayer],
+    started: false,
+    theme: "",
+    background: "",
+    duration: 10
+  };
 
-  if (!currentRoom) {
-    currentRoom = {
-      name: `${currentPlayer.name}'s Room`,
-      host: currentPlayer,
-      players: [currentPlayer],
-      theme: "",
-      background: "",
-      duration: 10,
-      started: false
-    };
-    localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
-  }
+  allRooms.push(room);
+  localStorage.setItem("allRooms", JSON.stringify(allRooms));
+  localStorage.setItem("currentRoom", JSON.stringify(room));
 
-  updateHostPlayerList();
-});
-
-// --- Join game ---
-joinBtn.addEventListener("click", () => {
-  joinMenu.classList.remove("hidden");
-  hostMenu.classList.add("hidden");
-
-  // Render available rooms
-  availableRooms.innerHTML = "";
-  const room = JSON.parse(localStorage.getItem("currentRoom"));
-  if (room && !room.started) {
-    const li = document.createElement("li");
-    li.textContent = room.name;
-    li.addEventListener("click", () => joinRoom(room));
-    availableRooms.appendChild(li);
-  }
-});
-
-// --- Join room ---
-function joinRoom(room) {
-  room.players.push(currentPlayer);
   currentRoom = room;
-  localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
-  alert(`Joined room: ${room.name}`);
-}
 
-// --- Start game ---
-startGameBtn.addEventListener("click", () => {
-  const theme = themeInput.value.trim();
-  const background = backgroundUrlInput.value.trim();
-  const duration = parseInt(timerInput.value);
+  // Show host interface
+  hostRoom.classList.remove("hidden");
+  joinMenu.classList.add("hidden");
+  updatePlayerList();
+  updateAvailableRooms();
+});
 
-  if (!theme || !duration) {
-    alert("Please set a theme and round duration!");
+// --- JOIN GAME ---
+joinBtn.addEventListener("click", () => {
+  // Show list of available rooms (but don’t create one)
+  joinMenu.classList.remove("hidden");
+  hostRoom.classList.add("hidden");
+  updateAvailableRooms();
+});
+
+// --- Show available rooms ---
+function updateAvailableRooms() {
+  availableRooms.innerHTML = "";
+  const rooms = JSON.parse(localStorage.getItem("allRooms") || "[]");
+  if (rooms.length === 0) {
+    availableRooms.innerHTML = "<li>No active rooms found.</li>";
     return;
   }
+
+  rooms.forEach(room => {
+    if (!room.started) {
+      const li = document.createElement("li");
+      li.textContent = room.name;
+      li.classList.add("room-item");
+      li.addEventListener("click", () => joinRoom(room.id));
+      availableRooms.appendChild(li);
+    }
+  });
+}
+
+// --- Join a room ---
+function joinRoom(roomId) {
+  const rooms = JSON.parse(localStorage.getItem("allRooms") || "[]");
+  const room = rooms.find(r => r.id === roomId);
+  if (!room) return alert("Room not found!");
+
+  // Add player if not already in
+  const alreadyJoined = room.players.some(p => p.name === currentPlayer.name);
+  if (!alreadyJoined) {
+    room.players.push(currentPlayer);
+  }
+
+  // Save back
+  const updatedRooms = rooms.map(r => (r.id === roomId ? room : r));
+  localStorage.setItem("allRooms", JSON.stringify(updatedRooms));
+  localStorage.setItem("currentRoom", JSON.stringify(room));
+
+  alert(`Joined ${room.name}`);
+}
+
+// --- Edit Round Settings ---
+editRoundBtn.addEventListener("click", () => {
+  roundSettings.classList.remove("hidden");
+});
+
+// --- Start Round ---
+startRoundBtn.addEventListener("click", () => {
+  const theme = document.getElementById("theme").value.trim();
+  const background = document.getElementById("backgroundUrl").value.trim();
+  const duration = parseInt(document.getElementById("timer").value);
+
+  if (!theme) return alert("Please enter a theme first!");
 
   currentRoom.theme = theme;
   currentRoom.background = background;
   currentRoom.duration = duration;
   currentRoom.started = true;
 
-  localStorage.setItem("currentRoom", JSON.stringify(currentRoom));
+  // Save back to allRooms
+  allRooms = allRooms.map(r => (r.id === currentRoom.id ? currentRoom : r));
+  localStorage.setItem("allRooms", JSON.stringify(allRooms));
 
-  // Apply background if provided
   if (background) {
     document.body.style.backgroundImage = `url(${background})`;
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
   }
 
-  alert(`Game started! Round duration: ${duration} minutes`);
-  // TODO: Redirect to game page
+  alert(`Round started!\nTheme: ${theme}\nDuration: ${duration} min`);
 });
+
+// --- Update Host Player List ---
+function updatePlayerList() {
+  playerListHost.innerHTML = "";
+  if (!currentRoom) return;
+
+  currentRoom.players.forEach((p, i) => {
+    const div = document.createElement("div");
+    div.classList.add("player-bubble");
+    div.innerHTML = `
+      <img src="${p.avatar || 'default-avatar.png'}" alt="${p.n
