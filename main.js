@@ -89,7 +89,5 @@ function selectBackground(url, imgEl) {
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
 }
 
-// === STEP 5: Continue to lobby ===
-continueBtn.addEventListener("click", () => {
-  window.location.href = "lobby.html";
-});
+
+
