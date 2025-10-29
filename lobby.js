@@ -15,7 +15,7 @@ const roundTheme = document.getElementById("roundTheme");
 const countdownEl = document.getElementById("countdown");
 const roundBackground = document.getElementById("roundBackground");
 
-// Dummy players array
+// Dummy players array (from main.js/localStorage)
 let players = JSON.parse(localStorage.getItem("players") || "[]");
 
 // Show Host Menu
@@ -53,7 +53,10 @@ function renderRooms() {
 
 // Start Round
 startGameBtn.addEventListener("click", () => {
+  // Hide lobby
   document.getElementById("lobbyContainer").classList.add("hidden");
+
+  // Show round screen
   roundScreen.classList.remove("hidden");
 
   // Show theme and background
@@ -63,18 +66,11 @@ startGameBtn.addEventListener("click", () => {
   roundTheme.textContent = theme;
   if (bgUrl) {
     roundBackground.style.backgroundImage = `url('${bgUrl}')`;
-    roundBackground.style.backgroundSize = "cover";
-    roundBackground.style.width = "100vw";
-    roundBackground.style.height = "100vh";
-    roundBackground.style.position = "absolute";
-    roundBackground.style.top = "0";
-    roundBackground.style.left = "0";
-    roundBackground.style.zIndex = "-1";
   } else {
     roundBackground.style.backgroundImage = "none";
   }
 
-  // Countdown timer
+  // Countdown timer in minutes
   let timeLeft = parseInt(timerInput.value || 10) * 60;
   countdownEl.textContent = formatTime(timeLeft);
 
@@ -84,6 +80,7 @@ startGameBtn.addEventListener("click", () => {
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
+      // Blackout
       roundBackground.style.backgroundImage = "none";
       roundScreen.style.backgroundColor = "black";
 
