@@ -1,3 +1,6 @@
+// === GoCatwalk Login & Background Selector ===
+
+// Elements
 const showBtn = document.getElementById("showBtn");
 const confirmBox = document.getElementById("confirmBox");
 const previewImg = document.getElementById("previewImg");
@@ -7,11 +10,11 @@ const usernameInput = document.getElementById("username");
 const modelIDInput = document.getElementById("modelID");
 const backgroundPicker = document.getElementById("backgroundPicker");
 const backgroundOptions = document.getElementById("backgroundOptions");
-const avatarPreview = document.getElementById("avatarPreview");
 const avatarImg = document.getElementById("avatarImg");
 const bgImage = document.getElementById("bgImage");
 const continueBtn = document.getElementById("continueBtn");
 
+// Background choices
 const backgrounds = [
   "https://gosupermodel.com/files/catwalk%20by%20falco%20avatar%20bg",
   "https://gosupermodel.com/files/lny_avatar_bg",
@@ -25,7 +28,7 @@ const backgrounds = [
   "https://gosupermodel.com/files/gochella%20by%20falco%20avatar%20bg"
 ];
 
-// Step 1: Show preview
+// === STEP 1: Show model preview ===
 showBtn.addEventListener("click", () => {
   const modelID = modelIDInput.value.trim();
   const username = usernameInput.value.trim();
@@ -40,20 +43,23 @@ showBtn.addEventListener("click", () => {
   previewImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
 });
 
-// Step 2: Confirm → Show picker
+// === STEP 2: Confirm model identity ===
 yesBtn.addEventListener("click", () => {
   const username = usernameInput.value.trim();
   const modelID = modelIDInput.value.trim();
   if (!username || !modelID) return;
 
+  // Save user data
   localStorage.setItem("currentUser", JSON.stringify({ name: username, id: modelID }));
 
+  // Hide confirmation and show floating picker
   confirmBox.classList.add("hidden");
   backgroundPicker.classList.remove("hidden");
-  avatarPreview.classList.remove("hidden");
 
+  // Show avatar in picker
   avatarImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
 
+  // Load background choices
   backgroundOptions.innerHTML = "";
   backgrounds.forEach(url => {
     const img = document.createElement("img");
@@ -63,47 +69,27 @@ yesBtn.addEventListener("click", () => {
   });
 });
 
-// Step 3: Reset
+// === STEP 3: “No” button resets ===
 noBtn.addEventListener("click", () => {
   confirmBox.classList.add("hidden");
   previewImg.classList.add("hidden");
   modelIDInput.value = "";
 });
 
-// Step 4: Select background
+// === STEP 4: Select a background ===
 function selectBackground(url, imgEl) {
-  document.querySelectorAll("#backgroundOptions img").forEach(img => img.style.boxShadow = "");
-  imgEl.style.boxShadow = "0 0 10px #ff4fae";
+  document.querySelectorAll("#backgroundOptions img").forEach(img => img.classList.remove("selected"));
+  imgEl.classList.add("selected");
+
   bgImage.src = url;
 
+  // Save to localStorage
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   currentUser.background = url;
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
 }
 
-// Step 5: Continue
+// === STEP 5: Continue to lobby ===
 continueBtn.addEventListener("click", () => {
   window.location.href = "lobby.html";
-});
-
-// --- Make picker draggable ---
-const dragHandle = document.getElementById("dragHandle");
-let offsetX = 0, offsetY = 0, dragging = false;
-
-dragHandle.addEventListener("mousedown", (e) => {
-  dragging = true;
-  offsetX = e.clientX - backgroundPicker.offsetLeft;
-  offsetY = e.clientY - backgroundPicker.offsetTop;
-  backgroundPicker.style.cursor = "grabbing";
-});
-
-document.addEventListener("mouseup", () => {
-  dragging = false;
-  backgroundPicker.style.cursor = "grab";
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!dragging) return;
-  backgroundPicker.style.left = `${e.clientX - offsetX}px`;
-  backgroundPicker.style.top = `${e.clientY - offsetY}px`;
 });
