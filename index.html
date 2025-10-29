@@ -28,12 +28,12 @@
     </div>
   </div>
 
-  <!-- 🌸 Background selection panel (hidden until confirmed) -->
-  <div class="side-panel hidden" id="sidePanel">
-    <h3>✨ Choose Your Catwalk Background</h3>
-    <div class="background-options" id="backgroundOptions"></div>
+  <!-- 🌸 Floating Background Picker - always visible after confirmation -->
+  <div id="backgroundPicker" class="hidden">
+    <div id="dragHandle">🎨 Choose Your Catwalk Background</div>
+    <div id="backgroundOptions"></div>
 
-    <div class="avatar-preview hidden" id="avatarPreview">
+    <div id="avatarPreview" class="hidden">
       <div class="avatar-container">
         <img id="bgImage" alt="Background" class="bg-layer">
         <img id="avatarImg" alt="Your Avatar" class="avatar-layer">
@@ -43,15 +43,5 @@
   </div>
 
   <script src="main.js"></script>
-
 </body>
 </html>
-</body>
-</html>
-    </div> <!-- closes login-container -->
-
-  <!-- Floating Background Picker outside the main box -->
-  <div id="backgroundPicker"> ... </div>
-
-  <script src="main.js"></script>
-  <script src="backgroundwidget.js"></script>
