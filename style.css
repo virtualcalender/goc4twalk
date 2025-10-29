@@ -237,4 +237,96 @@ button:hover {
   width: 90%;
   z-index: 2;
 }
+/* 🌸 Floating draggable background panel */
+.draggable-panel {
+  position: fixed;
+  top: 80px;
+  left: 40px;
+  width: 320px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 1rem;
+  text-align: center;
+  z-index: 10000;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.draggable-panel.dragging {
+  opacity: 0.9;
+  cursor: grabbing;
+}
+
+.draggable-panel h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #ff4fae;
+}
+
+.background-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.background-options img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.background-options img:hover {
+  transform: scale(1.05);
+}
+
+.background-options img.selected {
+  border-color: #ff4fae;
+}
+
+.avatar-preview {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.avatar-container {
+  position: relative;
+  width: 180px;
+  height: 260px;
+  margin: 0 auto;
+}
+
+.bg-layer {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.avatar-layer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
+.minimize-btn {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ff4fae;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 
