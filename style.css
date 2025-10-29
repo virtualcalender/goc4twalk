@@ -192,38 +192,26 @@ button:hover {
   margin-top: 20px;
 }
 
-#roundScreen {
+.hidden {
   display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  width: 100%;
-  height:100%;
-  background: black;
-  color:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
 }
 
-#roundScreen img {
+#roundScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top:0;
-  left:0;
-  z-index:-1;
+  display: none; /* Start hidden */
+  background-color: black; /* Only appears when countdown ends */
+  z-index: 1000;
 }
 
-#roundScreen .theme {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+#roundBackground {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: top center; /* show top of image */
 }
 
-#roundScreen .timer {
-  font-size: 3rem;
-}
 
