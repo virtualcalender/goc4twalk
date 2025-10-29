@@ -19,6 +19,13 @@ function createBackgroundWidget() {
 
   const widget = document.createElement("div");
   widget.classList.add("draggable-panel");
+
+  const savedPos = JSON.parse(localStorage.getItem("widgetPosition"));
+  if (savedPos) {
+    widget.style.top = savedPos.top;
+    widget.style.left = savedPos.left;
+  }
+
   widget.innerHTML = `
     <button class="minimize-btn" id="minimizeBtn">−</button>
     <h3>✨ Choose Background</h3>
@@ -33,7 +40,6 @@ function createBackgroundWidget() {
 
   document.body.appendChild(widget);
 
-  // Generate thumbnails
   const bgThumbs = widget.querySelector("#bgThumbs");
   backgrounds.forEach(url => {
     const img = document.createElement("img");
@@ -49,7 +55,6 @@ function createBackgroundWidget() {
     bgThumbs.appendChild(img);
   });
 
-  // Minimize / restore
   const minimizeBtn = widget.querySelector("#minimizeBtn");
   let minimized = false;
   minimizeBtn.addEventListener("click", () => {
@@ -59,7 +64,6 @@ function createBackgroundWidget() {
     minimizeBtn.textContent = minimized ? "+" : "−";
   });
 
-  // Dragging logic
   let isDragging = false, startX, startY, startLeft, startTop;
 
   widget.addEventListener("mousedown", (e) => {
@@ -82,10 +86,15 @@ function createBackgroundWidget() {
   });
 
   document.addEventListener("mouseup", () => {
+    if (isDragging) {
+      localStorage.setItem("widgetPosition", JSON.stringify({
+        top: widget.style.top,
+        left: widget.style.left
+      }));
+    }
     isDragging = false;
     widget.classList.remove("dragging");
   });
 }
 
-// Only run once page is ready
 document.addEventListener("DOMContentLoaded", createBackgroundWidget);
