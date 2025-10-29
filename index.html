@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>GoCatwalk Login</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="login-container fade-in">
     <h1>GoCatwalk</h1>
-    <div class="subtitle">Enter your info to start</div>
+    <p class="subtitle">Enter your name and GoSuperModel ID</p>
+
     <input id="username" placeholder="Enter your name" />
     <input id="modelID" placeholder="Enter your GoSuperModel ID" />
-    <button id="showBtn">Show My Outfit</button>
+    <button id="showBtn">Is this you?</button>
 
     <div class="preview hidden" id="confirmBox">
+      <img id="previewImg" class="hidden" src="" alt="Model Preview">
       <p>Is this you?</p>
-      <img id="previewImg" src="" alt="Model Preview" class="hidden">
-      <div>
-        <button id="yesBtn">Yes</button>
-        <button id="noBtn">No</button>
-      </div>
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
