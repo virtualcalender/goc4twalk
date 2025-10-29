@@ -1,32 +1,126 @@
-/* Page layout */
+/* 🌸 General page setup */
 body {
   background: linear-gradient(135deg, #ffe6f5, #ffd1e8);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   height: 100vh;
   margin: 0;
   color: #4a235a;
   overflow: hidden;
 
-  /* Center login box, but not everything */
+  /* Center the main login box */
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* allows fixed items to sit outside center */
+  position: relative; /* allows floating panel to stay independent */
 }
 
-/* Login container */
+/* 🌸 Main login container */
 .login-container {
   background: white;
   padding: 2.5rem;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 340px;
   text-align: center;
   z-index: 5;
   position: relative;
 }
 
-/* 🌸 Floating panel FIXED to the left */
+.login-container h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  color: #ff4fae;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #7d3c98;
+  margin-bottom: 1.5rem;
+}
+
+/* 🌸 Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: bold;
+  text-align: left;
+  margin-left: 5px;
+  font-size: 0.9rem;
+  color: #5b2c6f;
+}
+
+input {
+  padding: 0.6rem;
+  border: 2px solid #ffb6d6;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff4fae;
+}
+
+/* 🌸 Buttons */
+button {
+  background: #ff7ecb;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background: #ff4fae;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* 🌸 Model Preview */
+.preview {
+  margin-top: 1rem;
+}
+
+.preview img {
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+/* 🌸 Hidden class utility */
+.hidden {
+  display: none !important;
+}
+
+/* 🌸 Fade-in animation */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🌸 Floating Background Picker Widget */
 #backgroundPicker {
   position: fixed;
   top: 50%;
@@ -34,14 +128,19 @@ body {
   transform: translateY(-50%);
   background: white;
   border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   padding: 1rem;
   width: 250px;
   z-index: 9999;
   cursor: grab;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-/* Header for dragging */
+#backgroundPicker:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Drag handle */
 #dragHandle {
   background: #ff7ecb;
   color: white;
@@ -51,13 +150,20 @@ body {
   margin-bottom: 10px;
   cursor: grab;
   text-align: center;
+  user-select: none;
+  transition: background 0.3s;
 }
 
-/* Thumbnails */
+#dragHandle:hover {
+  background: #ff4fae;
+}
+
+/* 🌸 Background options grid */
 #backgroundOptions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
+  margin-bottom: 12px;
 }
 
 #backgroundOptions img {
@@ -66,6 +172,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
 }
 
 #backgroundOptions img:hover {
@@ -73,12 +180,13 @@ body {
   box-shadow: 0 0 10px #ffb6d6;
 }
 
-/* Avatar preview */
+/* 🌸 Avatar preview section */
 .avatar-container {
   position: relative;
   width: 200px;
   height: 280px;
   margin: 0 auto;
+  margin-bottom: 1rem;
 }
 
 .bg-layer {
@@ -96,6 +204,33 @@ body {
   width: 90%;
 }
 
-.hidden {
-  display: none !important;
+/* 🌸 Continue button under preview */
+#continueBtn {
+  background: #ff7ecb;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+#continueBtn:hover {
+  background: #ff4fae;
+  transform: scale(1.05);
+}
+
+/* 🌸 Responsive */
+@media (max-width: 800px) {
+  #backgroundPicker {
+    left: 10px;
+    width: 220px;
+  }
+
+  .login-container {
+    width: 300px;
+    padding: 2rem;
+  }
 }
