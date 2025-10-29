@@ -1,53 +1,106 @@
-  <script src="backgroundWidget.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>GoCatwalk Login</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>GoCatwalk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdd;
+      margin: 0; padding: 0;
+    }
+
+    /* Center login box */
+    .login-container {
+      background: white;
+      border-radius: 20px;
+      padding: 20px 30px;
+      width: 300px;
+      margin: 40px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    /* Floating Background Picker */
+    #backgroundWidget {
+      position: fixed;
+      top: 60px;
+      left: 20px;
+      width: 250px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      padding: 10px;
+      z-index: 9999;
+      cursor: grab;
+    }
+    #backgroundWidget h3 {
+      margin-top: 0;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    #backgroundWidget .bg-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    #backgroundWidget .bg-options img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #backgroundWidget .bg-options img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+  </style>
 </head>
 <body>
-  <div class="login-container fade-in">
+
+  <!-- Login container -->
+  <div class="login-container">
     <h1>GoCatwalk</h1>
-    <p class="subtitle">Enter your name and GoSuperModel ID</p>
+    <p>Enter your name and GoSuperModel ID</p>
 
-    <form>
-      <label for="username">Name:</label>
-      <input id="username" placeholder="Enter your name" />
+    <label for="username">Name:</label><br/>
+    <input id="username" placeholder="Enter your name" /><br/><br/>
 
-      <label for="modelID">GoSupermodel ID:</label>
-      <input id="modelID" placeholder="Enter your GoSuperModel ID" />
+    <label for="modelID">GoSupermodel ID:</label><br/>
+    <input id="modelID" placeholder="Enter your GoSuperModel ID" /><br/><br/>
 
-      <button type="button" id="showBtn">Check my model!</button>
-    </form>
+    <button id="checkBtn">Check my model!</button>
+  </div>
 
-    <div class="preview hidden" id="confirmBox">
-      <img id="previewImg" class="hidden" src="" alt="Model Preview">
-      <p>Is this you?</p>
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+  <!-- Floating Background Widget -->
+  <div id="backgroundWidget">
+    <h3>Choose your Catwalk Background</h3>
+    <div class="bg-options">
+      <img src="https://gosupermodel.com/files/catwalk%20by%20falco%20avatar%20bg" alt="BG1" />
+      <img src="https://gosupermodel.com/files/lny_avatar_bg" alt="BG2" />
+      <img src="https://gosupermodel.com/files/stage%20by%20falco%20avatar%20bg" alt="BG3" />
+      <img src="https://gosupermodel.com/files/spt%20avatar%20bg_dark" alt="BG4" />
+      <img src="https://gosupermodel.com/files/dark%20cats%20by%20chizumi%20avatar%20bg" alt="BG5" />
+      <img src="https://gosupermodel.com/files/flowers%20by%20chizumi%20avatar%20bg" alt="BG6" />
+      <img src="https://gosupermodel.com/files/darkmode%20by%20chizumi" alt="BG7" />
+      <img src="https://gosupermodel.com/files/bg%20avatar%20spt%201" alt="BG8" />
+      <img src="https://gosupermodel.com/files/avatar_bg_bts24" alt="BG9" />
+      <img src="https://gosupermodel.com/files/gochella%20by%20falco%20avatar%20bg" alt="BG10" />
     </div>
   </div>
 
-  <script src="main.js"></script>
-
+  <script>
+    const bgImages = document.querySelectorAll("#backgroundWidget .bg-options img");
+    bgImages.forEach(img => {
+      img.addEventListener("click", () => {
+        document.body.style.backgroundImage = `url(${img.src})`;
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+      });
+    });
+  </script>
 </body>
 </html>
-<!-- Floating Background Widget -->
-<div id="backgroundWidget" class="draggable-panel">
-  <div id="dragHandle" class="drag-handle">⋮ Drag me</div>
-  
-  <h3>Choose a Background</h3>
-  <div class="bg-options">
-    <img src="https://gosupermodel.com/files/catwalk%20by%20falco%20avatar%20bg" alt="BG1">
-    <img src="https://gosupermodel.com/files/lny_avatar_bg" alt="BG2">
-    <img src="https://gosupermodel.com/files/stage%20by%20falco%20avatar%20bg" alt="BG3">
-    <img src="https://gosupermodel.com/files/spt%20avatar%20bg_dark" alt="BG4">
-    <img src="https://gosupermodel.com/files/dark%20cats%20by%20chizumi%20avatar%20bg" alt="BG5">
-    <img src="https://gosupermodel.com/files/flowers%20by%20chizumi%20avatar%20bg" alt="BG6">
-    <img src="https://gosupermodel.com/files/darkmode%20by%20chizumi" alt="BG7">
-    <img src="https://gosupermodel.com/files/bg%20avatar%20spt%201" alt="BG8">
-    <img src="https://gosupermodel.com/files/avatar_bg_bts24" alt="BG9">
-    <img src="https://gosupermodel.com/files/gochella%20by%20falco%20avatar%20bg" alt="BG10">
-  </div>
-</div>
