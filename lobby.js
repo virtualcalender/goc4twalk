@@ -1,28 +1,23 @@
-// Retrieve player info from localStorage
-const playerName = localStorage.getItem("playerName") || "Guest";
-const playerModelID = localStorage.getItem("playerModelID") || "0";
-
-document.getElementById("playerName").textContent = playerName;
-document.getElementById("playerAvatar").src = `https://gosupermodel.com/dollservlet.png?model=${playerModelID}&large=1#filter`;
-
-// Menu buttons
 const hostBtn = document.getElementById("hostBtn");
 const joinBtn = document.getElementById("joinBtn");
 const hostMenu = document.getElementById("hostMenu");
 const joinMenu = document.getElementById("joinMenu");
+const playerAvatar = document.getElementById("playerAvatar");
+const playerNameP = document.getElementById("playerName");
 
-// Example list of games (would normally come from server)
-let games = [
-  { id: 1, host: "Alice" },
-  { id: 2, host: "Bob" }
-];
+const startGameBtn = document.getElementById("startGameBtn");
+const gameList = document.getElementById("gameList");
 
-// Player bubbles
-let players = [
-  { name: playerName, modelID: playerModelID }
-];
+// Load current player info
+const playerName = localStorage.getItem("playerName");
+const playerModelID = localStorage.getItem("playerModelID");
 
-// Show/hide menus
+if (playerName && playerModelID) {
+  playerNameP.textContent = playerName;
+  playerAvatar.style.backgroundImage = `url(https://gosupermodel.com/dollservlet.png?model=${playerModelID}&large=1#filter)`;
+}
+
+// Toggle menus
 hostBtn.addEventListener("click", () => {
   hostMenu.classList.toggle("hidden");
   joinMenu.classList.add("hidden");
@@ -34,29 +29,57 @@ joinBtn.addEventListener("click", () => {
   renderGameList();
 });
 
-// Render game list for joining
+// Start Game button
+startGameBtn.addEventListener("click", () => {
+  const roomName = document.getElementById("roomNameInput").value.trim();
+  const rounds = parseInt(document.getElementById("roundsInput").value);
+  const elimination = parseInt(document.getElementById("eliminationInput").value);
+  const themes = document.getElementById("themeInput").value.split(",").map(t => t.trim());
+  const kickTime = parseInt(document.getElementById("kickInput").value);
+
+  if (!roomName) {
+    alert("Please enter a room name.");
+    return;
+  }
+
+  let games = JSON.parse(localStorage.getItem("games") || "[]");
+  const newGame = {
+    id: games.length + 1,
+    host: playerName,
+    roomName,
+    rounds,
+    elimination,
+    themes,
+    kickTime,
+    players: [{ name: playerName, modelID: playerModelID }]
+  };
+
+  games.push(newGame);
+  localStorage.setItem("games", JSON.stringify(games));
+  alert(`Game "${roomName}" created! Players can now join.`);
+});
+
+// Render joinable games
 function renderGameList() {
-  const gameList = document.getElementById("gameList");
+  const games = JSON.parse(localStorage.getItem("games") || "[]");
   gameList.innerHTML = "";
+
   games.forEach(game => {
     const li = document.createElement("li");
-    li.textContent = `Game #${game.id} hosted by ${game.host}`;
+    li.textContent = `${game.roomName} hosted by ${game.host} (${game.players.length} players)`;
+    li.addEventListener("click", () => joinGame(game.id));
     gameList.appendChild(li);
   });
 }
 
-// Render player bubbles
-function renderPlayerBubbles() {
-  const container = document.getElementById("playerBubbles");
-  container.innerHTML = "";
-  players.forEach(p => {
-    const div = document.createElement("div");
-    div.classList.add("player-bubble");
-    const img = document.createElement("img");
-    img.src = `https://gosupermodel.com/dollservlet.png?model=${p.modelID}&large=1#filter`;
-    div.appendChild(img);
-    container.appendChild(div);
-  });
-}
+// Join a game
+function joinGame(gameId) {
+  const games = JSON.parse(localStorage.getItem("games") || "[]");
+  const game = games.find(g => g.id === gameId);
+  if (!game) return;
 
-renderPlayerBubbles();
+  game.players.push({ name: playerName, modelID: playerModelID });
+  localStorage.setItem("games", JSON.stringify(games));
+
+  alert(`Joined room "${game.roomName}"!`);
+}
