@@ -343,6 +343,47 @@ body {
   background-color: #ff4fae;
   transform: scale(1.03);
 }
+#backgroundPicker {
+  position: fixed;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1rem;
+  width: 220px;
+  z-index: 9999;
+  cursor: move;
+}
+
+#backgroundPicker h3 {
+  margin-top: 0;
+  color: #4a235a;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#backgroundOptions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+#backgroundOptions img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#backgroundOptions img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ffb6d6;
+}
+
 
 
 
