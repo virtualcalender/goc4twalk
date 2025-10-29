@@ -12,9 +12,10 @@ showBtn.addEventListener("click", () => {
     alert("Please enter your GoSuperModel ID!");
     return;
   }
-  
+
   // Set image source
   previewImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
+  previewImg.classList.remove("hidden"); // show the image
 
   // Show confirmation box
   confirmBox.classList.remove("hidden");
@@ -23,9 +24,12 @@ showBtn.addEventListener("click", () => {
 yesBtn.addEventListener("click", () => {
   alert(`Welcome, ${usernameInput.value}!`);
   confirmBox.classList.add("hidden");
+  previewImg.classList.add("hidden"); // hide image again
 });
 
 noBtn.addEventListener("click", () => {
   confirmBox.classList.add("hidden");
+  previewImg.classList.add("hidden"); // hide image again
   modelIDInput.value = "";
 });
+
