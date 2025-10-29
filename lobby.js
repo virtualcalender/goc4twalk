@@ -83,3 +83,72 @@ function joinGame(gameId) {
 
   alert(`Joined room "${game.roomName}"!`);
 }
+const kickBtn = document.getElementById("kickBtn");
+
+// Kick inactive players
+kickBtn.addEventListener("click", () => {
+  let games = JSON.parse(localStorage.getItem("games") || "[]");
+  const currentGame = games.find(g => g.host === playerName); // find the hosted game
+
+  if (!currentGame) {
+    alert("You have not hosted a game yet.");
+    return;
+  }
+
+  const kickTime = parseInt(document.getElementById("kickInput").value);
+  const now = Date.now();
+
+  // Remove inactive players (not counting eliminations)
+  currentGame.players = currentGame.players.filter(p => {
+    if (!p.lastActive) return true; // if no timestamp, keep
+    return now - p.lastActive <= kickTime * 1000;
+  });
+
+  localStorage.setItem("games", JSON.stringify(games));
+  alert("Inactive players kicked!");
+});
+
+// Update player activity on page load
+setInterval(() => {
+  let games = JSON.parse(localStorage.getItem("games") || "[]");
+  games.forEach(game => {
+    game.players.forEach(p => {
+      if (p.name === playerName) {
+        p.lastActive = Date.now();
+      }
+    });
+  });
+  localStorage.setItem("games", JSON.stringify(games));
+}, 5000);
+
+// Save other host options on Start Game
+startGameBtn.addEventListener("click", () => {
+  const roomName = document.getElementById("roomNameInput").value.trim();
+  const rounds = parseInt(document.getElementById("roundsInput").value);
+  const elimination = parseInt(document.getElementById("eliminationInput").value); // can be 0
+  const themes = document.getElementById("themeInput").value.split(",").map(t => t.trim());
+  const runway = document.getElementById("runwayInput").value.trim();
+  const kickTime = parseInt(document.getElementById("kickInput").value);
+
+  if (!roomName) {
+    alert("Please enter a room name.");
+    return;
+  }
+
+  let games = JSON.parse(localStorage.getItem("games") || "[]");
+  const newGame = {
+    id: games.length + 1,
+    host: playerName,
+    roomName,
+    rounds,
+    elimination,
+    themes,
+    runway,
+    kickTime,
+    players: [{ name: playerName, modelID: playerModelID, lastActive: Date.now() }]
+  };
+
+  games.push(newGame);
+  localStorage.setItem("games", JSON.stringify(games));
+  alert(`Game "${roomName}" created! Players can now join.`);
+});
