@@ -15,17 +15,17 @@
       <p id="playerName"></p>
     </div>
 
-    <!-- Lobby buttons -->
+    <!-- Main menu -->
     <div class="lobby-buttons">
       <button id="hostBtn">Host Game</button>
       <button id="joinBtn">Join Game</button>
     </div>
 
-    <!-- Host View -->
+    <!-- Host Room Section -->
     <div id="hostRoom" class="hidden">
       <h2>Your Room</h2>
+      <p id="roomNameDisplay"></p>
       <div id="playerListHost" class="player-list-host"></div>
-
       <button id="editRoundBtn">Edit Round Settings</button>
     </div>
 
@@ -49,6 +49,12 @@
     <div id="joinMenu" class="hidden">
       <h2>Available Rooms</h2>
       <ul id="availableRooms"></ul>
+    </div>
+
+    <!-- Room View for joined players -->
+    <div id="roomView" class="hidden">
+      <h2 id="joinedRoomName"></h2>
+      <div id="joinedPlayerList" class="player-list"></div>
     </div>
   </div>
 
