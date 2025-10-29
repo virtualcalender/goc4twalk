@@ -6,31 +6,37 @@ const noBtn = document.getElementById("noBtn");
 const usernameInput = document.getElementById("username");
 const modelIDInput = document.getElementById("modelID");
 
+// Show model preview
 showBtn.addEventListener("click", () => {
   const modelID = modelIDInput.value.trim();
-  if (!modelID) {
-    alert("Please enter your GoSuperModel ID!");
+  const username = usernameInput.value.trim();
+  if (!modelID || !username) {
+    alert("Enter both your name and GoSuperModel ID!");
     return;
   }
 
-  // Show the confirmation box first
   confirmBox.classList.remove("hidden");
-
-  // Ensure the image is visible
   previewImg.classList.remove("hidden");
-
-  // Then set the src so it loads properly
   previewImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
 });
 
+// Yes button: save player and go to lobby
 yesBtn.addEventListener("click", () => {
-  alert(`Welcome, ${usernameInput.value}!`);
-  confirmBox.classList.add("hidden");
-  previewImg.classList.add("hidden"); // hide image again
+  const username = usernameInput.value.trim();
+  if (!username) return;
+
+  // Save player name in localStorage
+  let players = JSON.parse(localStorage.getItem("players") || "[]");
+  players.push(username);
+  localStorage.setItem("players", JSON.stringify(players));
+
+  // Redirect to lobby
+  window.location.href = "lobby.html";
 });
 
+// No button: reset inputs
 noBtn.addEventListener("click", () => {
   confirmBox.classList.add("hidden");
-  previewImg.classList.add("hidden"); // hide image again
+  previewImg.classList.add("hidden");
   modelIDInput.value = "";
 });
