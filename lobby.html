@@ -9,44 +9,39 @@
   <div class="lobby-container fade-in">
     <h1>Lobby</h1>
 
+    <!-- Player Info -->
     <div class="player-info">
-      <img id="playerAvatar" src="" alt="Player Avatar">
+      <img id="playerAvatar" class="player-avatar" src="" alt="Your Avatar">
       <p id="playerName"></p>
     </div>
 
+    <!-- Lobby Options -->
     <div class="lobby-buttons">
       <button id="hostBtn">Host Game</button>
       <button id="joinBtn">Join Game</button>
     </div>
 
-    <!-- Host menu -->
-    <div class="menu hidden" id="hostMenu">
-      <h2>Host Settings</h2>
+    <!-- Host Menu -->
+    <div id="hostMenu" class="hidden">
+      <h2>Host Options</h2>
       <label for="roomNameInput">Room Name:</label>
       <input id="roomNameInput" placeholder="Enter room name">
 
-      <label for="roundInput">Current Round:</label>
-      <input id="roundInput" type="number" min="1" value="1">
-
       <label for="themeInput">Theme:</label>
-      <input id="themeInput" placeholder="Round theme">
-
-      <label for="eliminationInput">Players Eliminated:</label>
-      <input id="eliminationInput" type="number" min="0" value="1">
+      <input id="themeInput" placeholder="Enter round theme">
 
       <label for="backgroundInput">Runway Background URL:</label>
-      <input id="backgroundInput" placeholder="https://example.com/bg.jpg">
+      <input id="backgroundInput" placeholder="Optional image URL">
 
-      <button id="kickBtn">Kick Inactive Players</button>
       <button id="startRoundBtn">Start Round</button>
+      <button id="kickBtn">Kick Inactive Player</button>
     </div>
 
-    <!-- Join menu -->
-    <div class="menu hidden" id="joinMenu">
+    <!-- Join Menu -->
+    <div id="joinMenu" class="hidden">
       <h2>Join a Game</h2>
-      <div id="gameList">
-        <p>No games available yet</p>
-      </div>
+      <p>Available rooms will appear here (placeholder)</p>
+      <!-- Could populate dynamically later -->
     </div>
   </div>
 
