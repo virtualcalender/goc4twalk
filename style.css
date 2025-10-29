@@ -386,3 +386,111 @@ body {
 .menu button:hover {
   background-color: #ff4fae;
 }
+/* Lobby and Host/Join Menu */
+#lobbyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+#mainMenu button, #hostMenu button, #joinMenu button {
+  background-color: #ff7ecb;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#mainMenu button:hover, #hostMenu button:hover, #joinMenu button:hover {
+  background-color: #ff4fae;
+}
+
+#hostMenu, #joinMenu {
+  margin-top: 20px;
+  width: 300px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.player-list-host, #roomList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.player-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70px;
+  text-align: center;
+}
+
+.player-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Round Screen */
+#roundScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 1000;
+  background-color: black;
+}
+
+#roundBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: top center;
+  z-index: 0;
+}
+
+#roundTheme {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 24px;
+  z-index: 1;
+}
+
+#countdown {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 24px;
+  z-index: 1;
+}
+
+.players-during-round {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
+
