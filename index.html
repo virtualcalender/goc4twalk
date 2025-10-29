@@ -3,46 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>GoCatwalk Login</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <!-- Login Card -->
   <div class="login-container fade-in">
     <h1>GoCatwalk</h1>
-    <p class="subtitle">Enter your name & GoSupermodel ID</p>
+    <div class="subtitle">Enter your info to start</div>
+    <input id="username" placeholder="Enter your name" />
+    <input id="modelID" placeholder="Enter your GoSuperModel ID" />
+    <button id="showBtn">Show My Outfit</button>
 
-    <form id="loginForm">
-      <label for="username">Name</label>
-      <input type="text" id="username" placeholder="Your name" required>
-
-      <label for="modelId">GoSupermodel ID</label>
-      <input type="text" id="modelId" placeholder="123456" required>
-
-      <button type="submit">Show My Model</button>
-    </form>
-
-    <div class="status" id="loginStatus"></div>
-
-    <!-- 👗 Preview section -->
-    <div id="preview" class="preview hidden">
-      <h3 id="previewName"></h3>
-      <img id="previewImg" alt="Model preview" />
+    <div class="preview hidden" id="confirmBox">
+      <p>Is this you?</p>
+      <img id="previewImg" src="" alt="Model Preview">
+      <div>
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+      </div>
     </div>
   </div>
 
- <!-- 🩷 Confirmation Modal -->
-<div id="confirmModal" class="modal">
-  <div class="modal-content">
-    <h3 id="previewNameModal"></h3>
-    <img id="previewImgModal" alt="Model preview" />
-    <p>Is this you?</p>
-    <div class="modal-buttons">
-      <button id="confirmYes">✅ Yes</button>
-      <button id="confirmNo">❌ No</button>
-    </div>
-    </div>
-  </div>
-
-  <script src="/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
