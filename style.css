@@ -202,4 +202,54 @@ body {
   cursor: grabbing;
   transform: none !important;
 }
+/* --- Draggable Panel Styling --- */
+.draggable-panel {
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  width: 250px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  padding: 10px;
+  z-index: 9999;
+  cursor: grab;
+}
+
+.drag-handle {
+  background: #ff7ecb;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px 10px 0 0;
+  margin: -10px -10px 10px -10px;
+  font-weight: bold;
+  cursor: grab;
+}
+
+.draggable-panel.dragging .drag-handle {
+  cursor: grabbing;
+  opacity: 0.9;
+}
+
+.bg-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.bg-options img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bg-options img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
 
