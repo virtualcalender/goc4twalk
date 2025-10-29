@@ -39,18 +39,16 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
-/* ✅ Updated form and label styling */
 form {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  text-align: left;
 }
 
 label {
+  text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 0.2rem;
 }
 
 input {
@@ -64,12 +62,6 @@ input:focus {
   outline: none;
   border-color: #ff7ecb;
   box-shadow: 0 0 5px #ff7ecb;
-}
-
-/* Center the button below inputs */
-#showBtn {
-  margin-top: 0.5rem;
-  align-self: center;
 }
 
 button {
@@ -88,7 +80,6 @@ button:hover {
   transform: scale(1.03);
 }
 
-/* 👗 Preview section inside confirm box */
 .preview {
   margin-top: 1.5rem;
   text-align: center;
@@ -107,35 +98,4 @@ button:hover {
 
 #previewImg.hidden {
   display: none;
-}
-
-#confirmBox p {
-  color: #6c3483;
-  margin-bottom: 0.5rem;
-}
-
-#confirmBox button {
-  margin: 0 5px;
-  font-size: 0.9rem;
-  padding: 8px 14px;
-}
-
-/* Optional: list of players styling (for later) */
-#playerList {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-#playerList li {
-  background: #ffe6f5;
-  border: 1px solid #ffb6d6;
-  border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 6px;
-  text-align: center;
-  color: #4a235a;
-  font-weight: 600;
 }
