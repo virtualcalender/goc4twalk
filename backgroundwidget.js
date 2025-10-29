@@ -1,154 +1,33 @@
-// backgroundWidget.js
+// Draggable floating background picker widget
+const picker = document.getElementById("backgroundPicker");
 
-const backgrounds = [
-  "https://gosupermodel.com/files/catwalk%20by%20falco%20avatar%20bg",
-  "https://gosupermodel.com/files/lny_avatar_bg",
-  "https://gosupermodel.com/files/stage%20by%20falco%20avatar%20bg",
-  "https://gosupermodel.com/files/spt%20avatar%20bg_dark",
-  "https://gosupermodel.com/files/dark%20cats%20by%20chizumi%20avatar%20bg",
-  "https://gosupermodel.com/files/flowers%20by%20chizumi%20avatar%20bg",
-  "https://gosupermodel.com/files/darkmode%20by%20chizumi",
-  "https://gosupermodel.com/files/bg%20avatar%20spt%201",
-  "https://gosupermodel.com/files/avatar_bg_bts24",
-  "https://gosupermodel.com/files/gochella%20by%20falco%20avatar%20bg"
-];
+if (picker) {
+  // Make draggable
+  let offsetX = 0, offsetY = 0, isDragging = false;
 
-function createBackgroundWidget() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-  if (!user) return;
+  picker.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - picker.offsetLeft;
+    offsetY = e.clientY - picker.offsetTop;
+    picker.style.transition = "none";
+  });
 
-  const widget = document.createElement("div");
-  widget.classList.add("draggable-panel");
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
 
-  const savedPos = JSON.parse(localStorage.getItem("widgetPosition"));
-  if (savedPos) {
-    widget.style.top = savedPos.top;
-    widget.style.left = savedPos.left;
-  }
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    picker.style.left = `${e.clientX - offsetX}px`;
+    picker.style.top = `${e.clientY - offsetY}px`;
+  });
 
-  widget.innerHTML = `
-    <button class="minimize-btn" id="minimizeBtn">−</button>
-    <h3>✨ Choose Background</h3>
-    <div class="background-options" id="bgThumbs"></div>
-    <div class="avatar-preview">
-      <div class="avatar-container">
-        <img id="bgLayer" class="bg-layer" src="${user.background || backgrounds[0]}">
-        <img id="avatarLayer" class="avatar-layer" src="https://gosupermodel.com/dollservlet.png?model=${user.id}&large=1#filter">
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(widget);
-
-  const bgThumbs = widget.querySelector("#bgThumbs");
-  backgrounds.forEach(url => {
-    const img = document.createElement("img");
-    img.src = url;
-    if (url === user.background) img.classList.add("selected");
+  // Handle background selection
+  document.querySelectorAll("#backgroundOptions img").forEach((img) => {
     img.addEventListener("click", () => {
-      bgThumbs.querySelectorAll("img").forEach(i => i.classList.remove("selected"));
-      img.classList.add("selected");
-      widget.querySelector("#bgLayer").src = url;
-      user.background = url;
-      localStorage.setItem("currentUser", JSON.stringify(user));
+      localStorage.setItem("chosenBackground", img.src);
+      document.querySelectorAll("#backgroundOptions img").forEach(i => i.style.boxShadow = "");
+      img.style.boxShadow = "0 0 10px #ff4fae";
     });
-    bgThumbs.appendChild(img);
   });
-
-  const minimizeBtn = widget.querySelector("#minimizeBtn");
-  let minimized = false;
-  minimizeBtn.addEventListener("click", () => {
-    minimized = !minimized;
-    widget.querySelector("#bgThumbs").style.display = minimized ? "none" : "flex";
-    widget.querySelector(".avatar-preview").style.display = minimized ? "none" : "block";
-    minimizeBtn.textContent = minimized ? "+" : "−";
-  });
-
-// Enable true dragging on the entire window
-let isDragging = false, startX, startY, startLeft, startTop;
-
-widget.addEventListener("mousedown", (e) => {
-  // Only start dragging if clicking on panel background, not buttons/images
-  if (e.target.tagName === "IMG" || e.target.tagName === "BUTTON") return;
-  
-  isDragging = true;
-  widget.classList.add("dragging");
-  startX = e.clientX;
-  startY = e.clientY;
-  const rect = widget.getBoundingClientRect();
-  startLeft = rect.left;
-  startTop = rect.top;
-
-  e.preventDefault();
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
-  const dx = e.clientX - startX;
-  const dy = e.clientY - startY;
-  widget.style.left = startLeft + dx + "px";
-  widget.style.top = startTop + dy + "px";
-});
-
-document.addEventListener("mouseup", () => {
-  if (!isDragging) return;
-  isDragging = false;
-  widget.classList.remove("dragging");
-  localStorage.setItem("widgetPosition", JSON.stringify({
-    top: widget.style.top,
-    left: widget.style.left
-  }));
-});
-
-document.addEventListener("DOMContentLoaded", createBackgroundWidget);
-const widget = document.getElementById("backgroundWidget");
-const handle = document.getElementById("dragHandle");
-const bgImages = document.querySelectorAll(".bg-options img");
-
-// --- Draggable functionality ---
-let isDragging = false, startX, startY, startLeft, startTop;
-
-handle.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  widget.classList.add("dragging");
-  startX = e.clientX;
-  startY = e.clientY;
-  const rect = widget.getBoundingClientRect();
-  startLeft = rect.left;
-  startTop = rect.top;
-  e.preventDefault();
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
-  const dx = e.clientX - startX;
-  const dy = e.clientY - startY;
-  widget.style.left = startLeft + dx + "px";
-  widget.style.top = startTop + dy + "px";
-});
-
-document.addEventListener("mouseup", () => {
-  if (!isDragging) return;
-  isDragging = false;
-  widget.classList.remove("dragging");
-  localStorage.setItem("widgetPosition", JSON.stringify({
-    top: widget.style.top,
-    left: widget.style.left
-  }));
-});
-
-// --- Load previous position if saved ---
-const savedPos = JSON.parse(localStorage.getItem("widgetPosition"));
-if (savedPos) {
-  widget.style.top = savedPos.top;
-  widget.style.left = savedPos.left;
 }
-
-// --- Background selection ---
-bgImages.forEach(img => {
-  img.addEventListener("click", () => {
-    document.body.style.backgroundImage = `url(${img.src})`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-  });
-});
