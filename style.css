@@ -87,4 +87,23 @@ button:hover {
 #previewImg.hidden {
   display: none;
 }
+#playerList {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#playerList li {
+  background: #ffe6f5;
+  border: 1px solid #ffb6d6;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 6px;
+  text-align: center;
+  color: #4a235a;
+  font-weight: 600;
+}
+
 
