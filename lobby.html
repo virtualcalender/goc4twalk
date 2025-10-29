@@ -7,27 +7,33 @@
 </head>
 <body>
   <div class="lobby-container fade-in">
-    <h1>GoCatwalk Lobby</h1>
-    <div class="user-info">
-      <div class="avatar">
-        <img id="playerAvatar" src="" alt="Player Avatar">
-      </div>
+    <h1>Lobby</h1>
+
+    <div class="player-main">
+      <div class="player-avatar" id="playerAvatar"></div>
       <p id="playerName"></p>
     </div>
 
-    <div class="menu-buttons">
-      <button id="hostBtn">Host Game</button>
-      <button id="joinBtn">Join Game</button>
-    </div>
+    <button id="hostBtn">Host Game</button>
+    <button id="joinBtn">Join Game</button>
 
     <!-- Host Menu -->
     <div class="menu hidden" id="hostMenu">
       <h2>Host Game</h2>
-      <label for="themeInput">Theme:</label>
-      <input id="themeInput" placeholder="Enter theme">
+      <label for="roomNameInput">Room Name:</label>
+      <input id="roomNameInput" placeholder="Enter room name">
 
-      <label for="rulesInput">Rules:</label>
-      <textarea id="rulesInput" placeholder="Enter rules"></textarea>
+      <label for="roundsInput">Number of Rounds:</label>
+      <input id="roundsInput" type="number" min="1" value="3">
+
+      <label for="eliminationInput">Players Eliminated per Round:</label>
+      <input id="eliminationInput" type="number" min="1" value="1">
+
+      <label for="themeInput">Themes (comma separated):</label>
+      <input id="themeInput" placeholder="Theme1, Theme2, ...">
+
+      <label for="kickInput">Kick Inactive Players After (seconds):</label>
+      <input id="kickInput" type="number" min="10" value="60">
 
       <button id="startGameBtn">Start Game</button>
     </div>
@@ -35,14 +41,7 @@
     <!-- Join Menu -->
     <div class="menu hidden" id="joinMenu">
       <h2>Join Game</h2>
-      <ul id="gameList">
-        <!-- Dynamically filled with available games -->
-      </ul>
-    </div>
-
-    <!-- Player Bubbles -->
-    <div class="player-bubbles" id="playerBubbles">
-      <!-- Player avatars appear here in circles -->
+      <ul id="gameList"></ul>
     </div>
   </div>
 
