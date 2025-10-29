@@ -9,43 +9,44 @@
   <div class="lobby-container fade-in">
     <h1>Lobby</h1>
 
-    <div class="player-main">
-      <div class="player-avatar" id="playerAvatar"></div>
+    <div class="player-info">
+      <img id="playerAvatar" src="" alt="Player Avatar">
       <p id="playerName"></p>
     </div>
 
-    <button id="hostBtn">Host Game</button>
-    <button id="joinBtn">Join Game</button>
+    <div class="lobby-buttons">
+      <button id="hostBtn">Host Game</button>
+      <button id="joinBtn">Join Game</button>
+    </div>
 
-    <!-- Host Menu -->
-   <div class="menu hidden" id="hostMenu">
-  <h2>Host Game</h2>
-  <label for="roomNameInput">Room Name:</label>
-  <input id="roomNameInput" placeholder="Enter room name">
+    <!-- Host menu -->
+    <div class="menu hidden" id="hostMenu">
+      <h2>Host Settings</h2>
+      <label for="roomNameInput">Room Name:</label>
+      <input id="roomNameInput" placeholder="Enter room name">
 
-  <label for="roundsInput">Number of Rounds:</label>
-  <input id="roundsInput" type="number" min="1" value="3">
+      <label for="roundInput">Current Round:</label>
+      <input id="roundInput" type="number" min="1" value="1">
 
-  <label for="eliminationInput">Players Eliminated per Round:</label>
-  <input id="eliminationInput" type="number" min="0" value="1">
+      <label for="themeInput">Theme:</label>
+      <input id="themeInput" placeholder="Round theme">
 
-  <label for="themeInput">Themes (comma separated):</label>
-  <input id="themeInput" placeholder="Theme1, Theme2, ...">
+      <label for="eliminationInput">Players Eliminated:</label>
+      <input id="eliminationInput" type="number" min="0" value="1">
 
-  <label for="runwayInput">Runway Background URL:</label>
-  <input id="runwayInput" placeholder="https://example.com/background.jpg">
+      <label for="backgroundInput">Runway Background URL:</label>
+      <input id="backgroundInput" placeholder="https://example.com/bg.jpg">
 
-  <label for="kickInput">Kick Inactive Players After (seconds):</label>
-  <input id="kickInput" type="number" min="10" value="60">
+      <button id="kickBtn">Kick Inactive Players</button>
+      <button id="startRoundBtn">Start Round</button>
+    </div>
 
-  <button id="kickBtn">Kick Inactive Players</button>
-  <button id="startGameBtn">Start Game</button>
-</div>
-
-    <!-- Join Menu -->
+    <!-- Join menu -->
     <div class="menu hidden" id="joinMenu">
-      <h2>Join Game</h2>
-      <ul id="gameList"></ul>
+      <h2>Join a Game</h2>
+      <div id="gameList">
+        <p>No games available yet</p>
+      </div>
     </div>
   </div>
 
