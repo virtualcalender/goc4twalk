@@ -1,5 +1,5 @@
 // Draggable floating background picker widget
-const picker = document.getElementById("backgroundPicker");
+const picker = document.getElementById("backgroundwidget.html");
 
 if (picker) {
   // Make draggable
