@@ -1,17 +1,24 @@
 // DOM elements
-const hostMenu = document.getElementById("hostMenu");
-const joinMenu = document.getElementById("joinMenu");
 const hostBtn = document.getElementById("hostBtn");
 const joinBtn = document.getElementById("joinBtn");
-const startRoundBtn = document.getElementById("startRoundBtn");
-const kickBtn = document.getElementById("kickBtn");
-const roomNameInput = document.getElementById("roomNameInput");
-const themeInput = document.getElementById("themeInput");
-const backgroundInput = document.getElementById("backgroundInput");
+const hostMenu = document.getElementById("hostMenu");
+const joinMenu = document.getElementById("joinMenu");
+
 const playerAvatar = document.getElementById("playerAvatar");
 const playerName = document.getElementById("playerName");
 
-// Show host or join menu
+// Host inputs
+const roomNameInput = document.getElementById("roomName");
+const backgroundUrlInput = document.getElementById("backgroundUrl");
+const themeInput = document.getElementById("theme");
+const timerInput = document.getElementById("timer");
+const startRoundBtn = document.getElementById("startRoundBtn");
+
+let currentPlayer = JSON.parse(localStorage.getItem("currentPlayer") || "{}");
+playerName.textContent = currentPlayer.name || "Player";
+playerAvatar.src = currentPlayer.avatar || "default-avatar.png"; // fallback image
+
+// Show host/join menus
 hostBtn.addEventListener("click", () => {
   hostMenu.classList.remove("hidden");
   joinMenu.classList.add("hidden");
@@ -22,40 +29,35 @@ joinBtn.addEventListener("click", () => {
   hostMenu.classList.add("hidden");
 });
 
-// Load player info
-const savedPlayers = JSON.parse(localStorage.getItem("players") || "[]");
-if (savedPlayers.length > 0) {
-  playerName.textContent = savedPlayers[savedPlayers.length - 1];
-  const modelID = localStorage.getItem("lastModelID");
-  if (modelID) {
-    playerAvatar.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
-  }
-}
-
-// Start round
+// Start Round
 startRoundBtn.addEventListener("click", () => {
   const roomName = roomNameInput.value.trim();
+  const bgUrl = backgroundUrlInput.value.trim();
   const theme = themeInput.value.trim();
-  const backgroundURL = backgroundInput.value.trim();
+  const timer = parseInt(timerInput.value);
 
-  if (!roomName || !theme) {
-    alert("Room name and theme are required!");
+  if (!roomName || !bgUrl || !theme || !timer) {
+    alert("Please fill all fields correctly.");
     return;
   }
 
-  const roomData = { roomName, theme, backgroundURL };
-  localStorage.setItem("currentRoom", JSON.stringify(roomData));
-  alert(`Round started with theme: ${theme}`);
-});
+  // Save room info (could use Firebase later)
+  const room = {
+    name: roomName,
+    background: bgUrl,
+    theme: theme,
+    timer: timer,
+    host: currentPlayer.name,
+    players: [currentPlayer]
+  };
+  localStorage.setItem("currentRoom", JSON.stringify(room));
 
-// Kick inactive players
-kickBtn.addEventListener("click", () => {
-  let players = JSON.parse(localStorage.getItem("players") || "[]");
-  if (players.length > 0) {
-    const removedPlayer = players.pop();
-    localStorage.setItem("players", JSON.stringify(players));
-    alert(`${removedPlayer} was kicked from the room.`);
-  } else {
-    alert("No players to kick!");
-  }
+  // Show the background during wait time
+  document.body.style.backgroundImage = `url(${bgUrl})`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+
+  alert(`Room "${roomName}" created! Round will start for ${timer} minutes.`);
+
+  // Optionally redirect to round page or continue countdown
 });
