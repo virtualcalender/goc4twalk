@@ -46,3 +46,64 @@ noBtn.addEventListener("click", () => {
   previewImg.classList.add("hidden");
   modelIDInput.value = "";
 });
+const backgroundSelector = document.getElementById("backgroundSelector");
+const backgroundOptions = document.getElementById("backgroundOptions");
+const avatarPreview = document.getElementById("avatarPreview");
+const avatarImg = document.getElementById("avatarImg");
+const bgImage = document.getElementById("bgImage");
+
+const backgrounds = [
+  "https://gosupermodel.com/files/catwalk%20by%20falco%20avatar%20bg",
+  "https://gosupermodel.com/files/lny_avatar_bg",
+  "https://gosupermodel.com/files/stage%20by%20falco%20avatar%20bg",
+  "https://gosupermodel.com/files/spt%20avatar%20bg_dark",
+  "https://gosupermodel.com/files/dark%20cats%20by%20chizumi%20avatar%20bg",
+  "https://gosupermodel.com/files/flowers%20by%20chizumi%20avatar%20bg",
+  "https://gosupermodel.com/files/darkmode%20by%20chizumi",
+  "https://gosupermodel.com/files/bg%20avatar%20spt%201",
+  "https://gosupermodel.com/files/avatar_bg_bts24",
+  "https://gosupermodel.com/files/gochella%20by%20falco%20avatar%20bg"
+];
+
+// After "Yes" is confirmed (user verified)
+yesBtn.addEventListener("click", () => {
+  const username = usernameInput.value.trim();
+  const modelID = modelIDInput.value.trim();
+
+  if (!username || !modelID) return;
+
+  localStorage.setItem("currentUser", JSON.stringify({ name: username, id: modelID }));
+
+  // Show background selector
+  confirmBox.classList.add("hidden");
+  backgroundSelector.classList.remove("hidden");
+  avatarPreview.classList.remove("hidden");
+
+  // Display avatar
+  avatarImg.src = `https://gosupermodel.com/dollservlet.png?model=${modelID}&large=1#filter`;
+
+  // Populate backgrounds
+  backgroundOptions.innerHTML = "";
+  backgrounds.forEach(url => {
+    const img = document.createElement("img");
+    img.src = url;
+    img.addEventListener("click", () => selectBackground(url, img));
+    backgroundOptions.appendChild(img);
+  });
+});
+
+function selectBackground(url, imgEl) {
+  // Deselect others
+  document.querySelectorAll(".background-options img").forEach(img => img.classList.remove("selected"));
+  imgEl.classList.add("selected");
+
+  // Update background display
+  bgImage.src = url;
+
+  // Save selection
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  currentUser.background = url;
+  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+}
+
+
