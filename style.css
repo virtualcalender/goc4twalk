@@ -24,7 +24,7 @@ body {
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 340px;
+  width: 360px;
   text-align: center;
 }
 
@@ -39,23 +39,22 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
 label {
+  display: block;
   text-align: left;
+  margin-top: 10px;
+  margin-bottom: 5px;
   font-weight: 600;
-  font-size: 0.9rem;
+  color: #6c3483;
 }
 
 input {
+  width: 100%;
   padding: 10px;
   border: 2px solid #ffd1e8;
   border-radius: 8px;
   font-size: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 input:focus {
@@ -73,6 +72,7 @@ button {
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -82,7 +82,6 @@ button:hover {
 
 .preview {
   margin-top: 1.5rem;
-  text-align: center;
 }
 
 .preview.hidden {
@@ -92,407 +91,15 @@ button:hover {
 #previewImg {
   width: 150px;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 #previewImg.hidden {
   display: none;
 }
-/* User info styling */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 2rem;
-  justify-content: center;
-}
 
-.user-info img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.user-info p {
-  font-weight: 600;
-  color: #4a235a;
-  font-size: 1.1rem;
-}
-
-.lobby-container {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 360px;
-  text-align: center;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.user-info img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-bottom: 0.5rem;
-}
-
-.user-info p {
-  font-weight: 600;
-  color: #4a235a;
-}
-
-.lobby-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.lobby-buttons button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: #ff7ecb;
-  color: white;
-  border: none;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.lobby-buttons button:hover {
-  background-color: #ff4fae;
-  transform: scale(1.03);
-}
-.lobby-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 400px;
-  text-align: center;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.avatar img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top; /* Shows the top of the outfit */
-}
-
-.menu-buttons button {
-  margin: 0 10px;
-  background-color: #ff7ecb;
-  border-radius: 10px;
-  padding: 10px 16px;
-}
-
-.menu {
-  margin-top: 20px;
-  text-align: left;
-}
-
-.menu label {
-  display: block;
-  margin-top: 10px;
-  font-weight: 600;
-  color: #6c3483;
-}
-
-.menu input,
-.menu textarea {
-  width: 100%;
-  padding: 8px;
-  border: 2px solid #ffd1e8;
-  border-radius: 8px;
-  margin-top: 4px;
-}
-
-.player-bubbles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-.player-bubble {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid #ffb6d6;
-}
-
-.player-bubble img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top;
-}
-
-.hidden {
-  display: none;
-}
-.lobby-container {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 360px;
-  text-align: center;
-}
-
-.player-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.player-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  background-size: cover;
-  background-position: top center; /* keep the face visible */
-  margin-bottom: 0.5rem;
-}
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #ffe6f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: #4a235a;
-}
-
-.fade-in {
-  animation: fadeIn 1s ease forwards;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.game-container {
-  text-align: center;
-}
-
-#roundTitle {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-  color: #ff4fae;
-}
-
-.runway {
-  position: relative;
-  width: 400px;
-  height: 400px;
-  margin: 0 auto 1.5rem;
-  border-radius: 20px;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center top;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-#playerAvatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  border: 3px solid #ff7ecb;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-#playerName {
-  position: absolute;
-  bottom: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.menu {
-  margin-top: 20px;
-  text-align: left;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.menu label {
-  display: block;
-  margin-top: 10px;
-}
-
-.menu input {
-  width: 100%;
-  padding: 8px;
-  border-radius: 8px;
-  border: 2px solid #ffd1e8;
-  margin-top: 4px;
-}
-
-.menu button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 10px;
-  background-color: #ff7ecb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.menu button:hover {
-  background-color: #ff4fae;
-}
-/* Lobby and Host/Join Menu */
-#lobbyContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-#mainMenu button, #hostMenu button, #joinMenu button {
-  background-color: #ff7ecb;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#mainMenu button:hover, #hostMenu button:hover, #joinMenu button:hover {
-  background-color: #ff4fae;
-}
-
-#hostMenu, #joinMenu {
-  margin-top: 20px;
-  width: 300px;
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.player-list-host, #roomList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.player-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 70px;
-  text-align: center;
-}
-
-.player-item img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-}
-
-/* Round Screen */
-#roundScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
-  z-index: 1000;
-  background-color: black;
-}
-
-#roundBackground {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: top center;
-  z-index: 0;
-}
-
-#roundTheme {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-  font-size: 24px;
-  z-index: 1;
-}
-
-#countdown {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: white;
-  font-size: 24px;
-  z-index: 1;
-}
-
-.players-during-round {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 20px;
-  z-index: 1;
-}
-
-.hidden {
-  display: none;
-}
+/* Background selector section */
 .background-selector {
   margin-top: 20px;
 }
@@ -522,6 +129,7 @@ body {
   border-color: #ff4fae;
 }
 
+/* Avatar Preview */
 .avatar-preview {
   margin-top: 20px;
   text-align: center;
@@ -549,5 +157,3 @@ body {
   width: 90%;
   z-index: 2;
 }
-
-
