@@ -7,7 +7,7 @@
 </head>
 <body>
   <div class="game-container fade-in">
-    <h1 id="roundTitle">Round 1: Theme</h1>
+    <h1 id="roundTitle">Round 1</h1>
 
     <!-- Runway background -->
     <div class="runway" id="runway">
@@ -15,7 +15,7 @@
       <p id="playerName"></p>
     </div>
 
-    <!-- Host controls (only visible to host) -->
+    <!-- Host controls -->
     <div class="menu hidden" id="hostRoundMenu">
       <h2>Host Round Settings</h2>
 
@@ -34,6 +34,9 @@
       <button id="kickBtn">Kick Inactive Players</button>
       <button id="startRoundBtn">Start Round</button>
     </div>
+
+    <!-- Next round button -->
+    <button id="nextRoundBtn" class="hidden">Next Round</button>
   </div>
 
   <script src="game.js"></script>
