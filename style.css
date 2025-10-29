@@ -121,17 +121,49 @@ button:hover {
   font-size: 1.1rem;
 }
 
-/* Lobby buttons */
-.lobby-buttons {
+.lobby-container {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 360px;
+  text-align: center;
+}
+
+.user-info {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.user-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 0.5rem;
+}
+
+.user-info p {
+  font-weight: 600;
+  color: #4a235a;
+}
+
+.lobby-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
 .lobby-buttons button {
-  font-size: 1rem;
+  flex: 1;
   padding: 12px;
   border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
   background-color: #ff7ecb;
   color: white;
@@ -143,4 +175,6 @@ button:hover {
   background-color: #ff4fae;
   transform: scale(1.03);
 }
+
+
 
