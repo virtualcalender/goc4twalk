@@ -19,199 +19,110 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* LOGIN & LOBBY CONTAINERS */
-.login-container, .lobby-container {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 340px;
-  text-align: center;
-}
-
-/* HEADINGS */
-h1 {
-  color: #ff4fae;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-}
-
-.subtitle {
-  color: #6c3483;
-  margin-bottom: 1.5rem;
-}
-
-/* INPUTS */
-input {
-  padding: 10px;
-  border: 2px solid #ffd1e8;
-  border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 0.8rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-input:focus {
-  outline: none;
-  border-color: #ff7ecb;
-  box-shadow: 0 0 5px #ff7ecb;
-}
-
-/* BUTTONS */
-button {
-  background-color: #ff7ecb;
-  border: none;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-  margin-top: 5px;
-}
-
-button:hover {
-  background-color: #ff4fae;
-  transform: scale(1.03);
-}
-
-/* PREVIEW BOX */
-.preview {
-  margin-top: 1.5rem;
-}
-
-.preview.hidden {
-  display: none;
-}
-
-#previewImg {
-  width: 150px;
-  border-radius: 10px;
-  margin-top: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-#previewImg.hidden {
-  display: none;
-}
-
-/* PLAYER AVATAR IN LOBBY */
-.player-info {
+/* Lobby and Host/Join Menu */
+#lobbyContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem; /* space above menus */
+  padding: 20px;
 }
 
-.player-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover; /* ensures avatar fills circle without stretching */
-  object-position: top; /* shows the top of the model */
-  border: 3px solid #ff7ecb;
-  margin-bottom: 10px;
+#mainMenu button, #hostMenu button, #joinMenu button {
+  background-color: #ff7ecb;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-.player-info p {
-  font-weight: 600;
-  color: #4a235a;
-  margin: 0;
+#mainMenu button:hover, #hostMenu button:hover, #joinMenu button:hover {
+  background-color: #ff4fae;
 }
 
-/* HOST/JOIN MENU */
 #hostMenu, #joinMenu {
-  background: #ffe6f5;
+  margin-top: 20px;
+  width: 300px;
+  background: white;
   padding: 15px;
   border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.player-list-host, #roomList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 10px;
+}
+
+.player-item {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.hidden {
-  display: none;
-}
-
-/* LOBBY BUTTONS (host/join) */
-.lobby-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.lobby-buttons button {
-  flex: 1;
-  margin: 0 5px;
-}
-
-/* Optional: scrollable player list later */
-#playerList {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-#playerList li {
-  background: #ffe6f5;
-  border: 1px solid #ffb6d6;
-  border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 6px;
+  align-items: center;
+  width: 70px;
   text-align: center;
-  color: #4a235a;
-  font-weight: 600;
-}
-/* Existing styles stay */
-
-.player-bubble {
-  display: inline-block;
-  text-align: center;
-  margin: 10px;
 }
 
-.player-bubble img {
-  width: 100px;
-  height: 100px;
+.player-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   object-fit: cover;
   object-position: top;
-  border-radius: 50%;
-  border: 2px solid #ff7ecb;
 }
 
-.lobby-container {
-  text-align: center;
-  padding: 1rem;
-}
-
-.room-container {
-  margin-top: 20px;
-}
-
-.hidden {
-  display: none;
-}
-
+/* Round Screen */
 #roundScreen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: none; /* Start hidden */
-  background-color: black; /* Only appears when countdown ends */
+  display: none;
   z-index: 1000;
+  background-color: black;
 }
 
 #roundBackground {
+  position: absolute;
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: top center; /* show top of image */
+  background-position: top center;
+  z-index: 0;
 }
 
+#roundTheme {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 24px;
+  z-index: 1;
+}
 
+#countdown {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 24px;
+  z-index: 1;
+}
+
+.players-during-round {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
