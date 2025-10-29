@@ -99,3 +99,48 @@ button:hover {
 #previewImg.hidden {
   display: none;
 }
+/* User info styling */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.user-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.user-info p {
+  font-weight: 600;
+  color: #4a235a;
+  font-size: 1.1rem;
+}
+
+/* Lobby buttons */
+.lobby-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lobby-buttons button {
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ff7ecb;
+  color: white;
+  border: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.lobby-buttons button:hover {
+  background-color: #ff4fae;
+  transform: scale(1.03);
+}
+
