@@ -166,3 +166,64 @@ button:hover {
   color: #4a235a;
   font-weight: 600;
 }
+/* Existing styles stay */
+
+.player-bubble {
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+}
+
+.player-bubble img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
+  border: 2px solid #ff7ecb;
+}
+
+.lobby-container {
+  text-align: center;
+  padding: 1rem;
+}
+
+.room-container {
+  margin-top: 20px;
+}
+
+#roundScreen {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height:100%;
+  background: black;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+#roundScreen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+#roundScreen .theme {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#roundScreen .timer {
+  font-size: 3rem;
+}
+
